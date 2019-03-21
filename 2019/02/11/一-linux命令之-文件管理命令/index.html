@@ -1,0 +1,383 @@
+<!DOCTYPE HTML>
+<html lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="廖振钦的个人网站">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <link rel="dns-prefetch" href="https://liaozhq.github.io">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>linux命令之一[文件管理命令] | 廖振钦的个人网站</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="廖振钦的个人网站" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(https://raw.githubusercontent.com/qincloud/cloudconfig/master/images/20190106/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="liaozq">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://liaozhq.github.io">廖振钦的个人网站</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/resume/"><i class="fa "></i>个人简历</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/prev/"><i class="fa "></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/linux/"><i class="fa "></i>linux</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/c/"><i class="fa "></i>c/c++</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/java/"><i class="fa "></i>java</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/database/"><i class="fa "></i>数据库</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/mechine/"><i class="fa "></i>机器学习</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/bigdata/"><i class="fa "></i>云计算/大数据</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/search/"><i class="fa "></i>搜索引擎</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/algorithm/"><i class="fa "></i>数据结构/算法</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/tool/"><i class="fa "></i>工具/中间件</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/server/"><i class="fa "></i>服务器</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/work/"><i class="fa "></i>work</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/hacker/"><i class="fa "></i>hacker</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="linux命令之一[文件管理命令]">
+            
+	            linux命令之一[文件管理命令]
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/linux">
+            linux
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/linux命令" title="linux命令">
+                        linux命令
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/02/11</span>
+        </span>
+        
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="1-find命令使用示范"><a href="#1-find命令使用示范" class="headerlink" title="1.find命令使用示范:"></a><font color="#8A2BE2">1.find命令使用示范:</font></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lzq@lzqcloud:~$ find /home/lzq -name jgzfxt      <span class="comment">#/home/lzq目录下找jgzfxt文件夹</span></span><br><span class="line">lzq@lzqcloud:~$ find /home/lzq -name Jbxx.java　 <span class="comment">#/home/lzq目录下找Jbxx.java文件</span></span><br><span class="line">lzq@lzqcloud:~$ find /home/lzq -name *Jbxx*      <span class="comment">#使用通配符*(0或者任意多个)</span></span><br></pre></td></tr></table></figure>
+<p>按照文件特征查找 　　　　<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">find / -amin -10 　　<span class="comment"># 查找在系统中最后10分钟访问的文件(access time)</span></span><br><span class="line">find / -atime -2　　 <span class="comment"># 查找在系统中最后48小时访问的文件</span></span><br><span class="line">find / -empty 　　<span class="comment"># 查找在系统中为空的文件或者文件夹</span></span><br><span class="line">find / -group cat 　　<span class="comment"># 查找在系统中属于 group为cat的文件</span></span><br><span class="line">find / -mmin -5 　　<span class="comment"># 查找在系统中最后5分钟里修改过的文件(modify time)</span></span><br><span class="line">find / -mtime -1 　　<span class="comment">#查找在系统中最后24小时里修改过的文件</span></span><br><span class="line">find / -user fred 　　<span class="comment">#查找在系统中属于fred这个用户的文件</span></span><br><span class="line">find / -size +10000c　　<span class="comment">#查找出大于10000000字节的文件(c:字节，w:双字，k:KB，M:MB，G:GB)</span></span><br><span class="line">find / -size -1000k 　　<span class="comment">#查找出小于1000KB的文件</span></span><br></pre></td></tr></table></figure></p>
+<p>使用混合查找方式查找文件<br>参数有： ！，-and(-a)，-or(-o)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">find /tmp -size +10000c -and -mtime +2 　　<span class="comment">#在/tmp目录下查找大于10000字节并在最后2分钟内修改的文件  </span></span><br><span class="line">find / -user fred -or -user george 　　<span class="comment">#在/目录下查找用户是fred或者george的文件文件　    </span></span><br><span class="line">find /tmp ! -user panda　　<span class="comment">#在/tmp目录中查找所有不属于panda用户的文件</span></span><br></pre></td></tr></table></figure></p>
+<p>find参数大全<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">-name   filename             <span class="comment">#查找名为filename的文件</span></span><br><span class="line">-perm                        <span class="comment">#按执行权限来查找</span></span><br><span class="line">-user    username             <span class="comment">#按文件属主来查找</span></span><br><span class="line">-group groupname            <span class="comment">#按组来查找</span></span><br><span class="line">-mtime   -n +n                <span class="comment">#按文件更改时间来查找文件，-n指n天以内，+n指n天以前</span></span><br><span class="line">-atime    -n +n               <span class="comment">#按文件访问时间来查GIN: 0px"&gt;</span></span><br><span class="line"></span><br><span class="line">-ctime    -n +n              <span class="comment">#按文件创建时间来查找文件，-n指n天以内，+n指n天以前</span></span><br><span class="line"></span><br><span class="line">-nogroup                     <span class="comment">#查无有效属组的文件，即文件的属组在/etc/groups中不存在</span></span><br><span class="line">-nouser                     <span class="comment">#查无有效属主的文件，即文件的属主在/etc/passwd中不存</span></span><br><span class="line">-newer   f1 !f2              找文件，-n指n天以内，+n指n天以前 </span><br><span class="line">-ctime    -n +n               <span class="comment">#按文件创建时间来查找文件，-n指n天以内，+n指n天以前 </span></span><br><span class="line">-nogroup                     <span class="comment">#查无有效属组的文件，即文件的属组在/etc/groups中不存在</span></span><br><span class="line">-nouser                      <span class="comment">#查无有效属主的文件，即文件的属主在/etc/passwd中不存</span></span><br><span class="line">-newer   f1 !f2               <span class="comment">#查更改时间比f1新但比f2旧的文件</span></span><br><span class="line">-<span class="built_in">type</span>    b/d/c/p/l/f         <span class="comment">#查是块设备、目录、字符设备、管道、符号链接、普通文件</span></span><br><span class="line">-size      n[c]               <span class="comment">#查长度为n块[或n字节]的文件</span></span><br><span class="line">-depth                       <span class="comment">#使查找在进入子目录前先行查找完本目录</span></span><br><span class="line">-fstype                     <span class="comment">#查更改时间比f1新但比f2旧的文件</span></span><br><span class="line">-<span class="built_in">type</span>    b/d/c/p/l/f         <span class="comment">#查是块设备、目录、字符设备、管道、符号链接、普通文件</span></span><br><span class="line">-size      n[c]               <span class="comment">#查长度为n块[或n字节]的文件</span></span><br><span class="line">-depth                       <span class="comment">#使查找在进入子目录前先行查找完本目录</span></span><br><span class="line">-fstype                      <span class="comment">#查位于某一类型文件系统中的文件，这些文件系统类型通常可 在/etc/fstab中找到</span></span><br><span class="line">-mount                       <span class="comment">#查文件时不跨越文件系统mount点</span></span><br><span class="line">-follow                      <span class="comment">#如果遇到符号链接文件，就跟踪链接所指的文件</span></span><br><span class="line">-cpio                %;      <span class="comment">#查位于某一类型文件系统中的文件，这些文件系统类型通常可 在/etc/fstab中找到</span></span><br><span class="line">-mount                       <span class="comment">#查文件时不跨越文件系统mount点</span></span><br><span class="line">-follow                      <span class="comment">#如果遇到符号链接文件，就跟踪链接所指的文件</span></span><br><span class="line">-cpio                        <span class="comment">#对匹配的文件使用cpio命令，将他们备份到磁带设备中</span></span><br><span class="line">-prune                       <span class="comment">#忽略某个目录</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="2-locate命令使用示范"><a href="#2-locate命令使用示范" class="headerlink" title="2.locate命令使用示范:"></a><font color="#8A2BE2">2.locate命令使用示范:</font></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lzq@lzqcloud:~$ locate web.xml    <span class="comment">#命令 文件名</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-scp命令使用示范"><a href="#3-scp命令使用示范" class="headerlink" title="3.scp命令使用示范:"></a><font color="#8A2BE2">3.scp命令使用示范:</font></h3><p>单个文件copy<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lzq@lzqcloud:~$ scp /home/lzq/lzqspace/tool/web.xml root@23.83.253.42:/home/lzq/lzqspace/tool/web.xml</span><br></pre></td></tr></table></figure></p>
+<p>将本地tool文件夹copy到23.83.253.42的同路径上<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lzq@lzqcloud:~$ scp -r /home/lzq/lzqspace/tool root@23.83.253.42:/home/lzq/lzqspace</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-whereis命令使用示范"><a href="#4-whereis命令使用示范" class="headerlink" title="4.whereis命令使用示范:"></a><font color="#8A2BE2">4.whereis命令使用示范:</font></h3><p>该指令只能用于查找二进制文件、源代码文件和man手册页<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lzq@lzqcloud:~$ whereis find</span><br><span class="line">find: /usr/bin/find /usr/share/man/man1/find.1.gz /usr/share/info/find.info.gz</span><br></pre></td></tr></table></figure></p>
+<h3 id="5-split命令示范讲解"><a href="#5-split命令示范讲解" class="headerlink" title="5.split命令示范讲解:"></a><font color="#8A2BE2">5.split命令示范讲解:</font></h3><p>参数说明:</p>
+<p>-b：值为每一输出档案的大小，单位为 byte。</p>
+<p>-C：每一输出档中，单行的最大 byte 数。</p>
+<p>-d：使用数字作为后缀。</p>
+<p>-l：值为每一输出档的列数大小</p>
+<p>将YqYqglJtpgXgpcController.java文件每100行分割为一个文件:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lzq@lzqcloud:~/桌面/tmp/<span class="built_in">test</span>$ split -l 100 YqYqglJtpgXgpcController.java</span><br></pre></td></tr></table></figure></p>
+<p>将YqYqglJtpgXgpcController.java文件每100行分割为T开头的文件:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lzq@lzqcloud:~/桌面/tmp/<span class="built_in">test</span>$ split -l 100 YqYqglJtpgXgpcController.java T</span><br></pre></td></tr></table></figure></p>
+<p>将YqYqglJtpgXgpcController.java文件每100行分割为T开头数字为后缀的文件:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lzq@lzqcloud:~/桌面/tmp/<span class="built_in">test</span>$ split -d -l 100 YqYqglJtpgXgpcController.java T</span><br></pre></td></tr></table></figure></p>
+<p>将YqYqglJtpgXgpcController.java文件每30kb进行分割<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lzq@lzqcloud:~/桌面/tmp/<span class="built_in">test</span>$ split -b 30k YqYqglJtpgXgpcController.java</span><br></pre></td></tr></table></figure></p>
+<h3 id="6-cat命令示范讲解"><a href="#6-cat命令示范讲解" class="headerlink" title="6.cat命令示范讲解:"></a><font color="#8A2BE2">6.cat命令示范讲解:</font></h3>
+    </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="https://raw.githubusercontent.com/qincloud/cloudconfig/master/images/20181205/weixi.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip"></p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ©
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2019/02/11/二-linux命令之-文档编辑命令/" class="pre-post btn btn-default" title="linux命令之二[文档编辑命令]">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">linux命令之二[文档编辑命令]</span>
+        </a>
+    
+    
+        <a href="/2019/02/09/elasticsearch环境搭建/" class="next-post btn btn-default" title="elasticsearch环境搭建">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">elasticsearch环境搭建</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: ''.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-find命令使用示范"><span class="toc-text">1.find命令使用示范:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-locate命令使用示范"><span class="toc-text">2.locate命令使用示范:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-scp命令使用示范"><span class="toc-text">3.scp命令使用示范:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-whereis命令使用示范"><span class="toc-text">4.whereis命令使用示范:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-split命令示范讲解"><span class="toc-text">5.split命令示范讲解:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-cat命令示范讲解"><span class="toc-text">6.cat命令示范讲解:</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <!--
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2018
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>-->
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
