@@ -28,7 +28,7 @@
     <!--Title-->
 
 
-<title>oracle函数大全 | 廖振钦的个人网站</title>
+<title>SQL正则表达式 | 廖振钦的个人网站</title>
 
 
     <link rel="alternate" href="/atom.xml" title="廖振钦的个人网站" type="application/atom+xml">
@@ -189,9 +189,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="oracle函数大全">
+        <h1 id="SQL正则表达式">
             
-	            oracle函数大全
+	            SQL正则表达式
             
         </h1>
         <div class="post-meta">
@@ -211,8 +211,8 @@
         <span class="tags-meta">
             
                 
-                    <a href="/tags/oracle" title="oracle">
-                        oracle
+                    <a href="/tags/sql" title="sql">
+                        sql
                     </a>
                 
             
@@ -224,7 +224,7 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2019/03/06</span>
+            <span class="date-meta">2019/04/12</span>
         </span>
         
     
@@ -235,7 +235,17 @@
     </div>
     
     <div class="post-body post-content">
-        
+        <h3 id="1-ORACLE正则表达式函数"><a href="#1-ORACLE正则表达式函数" class="headerlink" title="1.ORACLE正则表达式函数"></a>1.ORACLE正则表达式函数</h3><h4 id="1-1-REGEXP-LIKE"><a href="#1-1-REGEXP-LIKE" class="headerlink" title="1.1 REGEXP_LIKE"></a>1.1 REGEXP_LIKE</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">select</span> SXZYY <span class="keyword">from</span> SW_ZH_ZHMX <span class="keyword">where</span> <span class="keyword">REGEXP_LIKE</span>(SXZYY, <span class="string">'^\w\d'</span>, <span class="string">'i'</span>); <span class="comment">-- 'i' 忽略大小写</span></span><br></pre></td></tr></table></figure>
+<p>SXZYY</p>
+<p>21321<br>1232<br>11<br>111<br>11<br>12<br>12312<br>231231<br>121<br>23<br>11111<br>2132132112<br>q1231<br>211111111111<br>2132131<br>2312321<br>111<br>23213<br>23213<br>10<br>11<br>1010<br>11<br>10<br>10<br>10<br>101<br>11<br>10<br>102<br>10<br>101<br>10<br>10<br>10<br>10<br>10<br>200<br>100<br>1000<br>123<br>231<br>1231<br>1231<br>1231    </p>
+<h4 id="1-2-REGEXP-INSTR"><a href="#1-2-REGEXP-INSTR" class="headerlink" title="1.2 REGEXP_INSTR"></a>1.2 REGEXP_INSTR</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> SXZYY, REGEXP_INSTR(SXZYY, <span class="string">'[3]'</span>), REGEXP_INSTR(SXZYY, <span class="string">'[q]'</span>)  <span class="keyword">from</span> SW_ZH_ZHMX <span class="keyword">where</span> <span class="keyword">REGEXP_LIKE</span>(SXZYY, <span class="string">'^\w\d'</span>);</span><br></pre></td></tr></table></figure>
+<p>SXZYY    REGEXP_INSTR(SXZYY,’[3]’)    REGEXP_INSTR(SXZYY,’[q]’)<br>21321    3    0<br>1232    3    0<br>11    0    0<br>111    0    0<br>11    0    0<br>12    0    0<br>12312    3    0<br>231231    2    0<br>121    0    0<br>23    2    0<br>11111    0    0<br>2132132112    3    0<br>q1231    4    1<br>211111111111    0    0<br>2132131    3    0<br>2312321    2    0<br>111    0    0<br>23213    2    0<br>23213    2    0<br>10    0    0<br>11    0    0<br>1010    0    0<br>11    0    0<br>10    0    0<br>10    0    0<br>10    0    0<br>101    0    0<br>11    0    0<br>10    0    0<br>102    0    0<br>10    0    0<br>101    0    0<br>10    0    0<br>10    0    0<br>10    0    0<br>10    0    0<br>10    0    0<br>200    0    0<br>100    0    0<br>1000    0    0<br>123    3    0<br>231    2    0<br>1231    3    0<br>1231    3    0<br>1231    3    0    </p>
+<h4 id="1-3-REGEXP-REPLACE"><a href="#1-3-REGEXP-REPLACE" class="headerlink" title="1.3 REGEXP_REPLACE"></a>1.3 REGEXP_REPLACE</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> SXZYY, REGEXP_REPLACE(SXZYY, <span class="string">'[1]'</span>, <span class="string">'L'</span>)  <span class="keyword">from</span> SW_ZH_ZHMX <span class="keyword">where</span> <span class="keyword">REGEXP_LIKE</span>(SXZYY, <span class="string">'^\w\d'</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="1-4-REGEXP-SUBSTR"><a href="#1-4-REGEXP-SUBSTR" class="headerlink" title="1.4 REGEXP_SUBSTR"></a>1.4 REGEXP_SUBSTR</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">    REGEXP_SUBSTR(<span class="string">'01 = 1:02 = 2:03 = 3:04 = 4'</span>, <span class="string">'[^:]+'</span>, <span class="number">1</span>, <span class="keyword">rownum</span>) <span class="keyword">as</span> newport,<span class="keyword">rownum</span> <span class="keyword">as</span> hrow</span><br><span class="line"><span class="keyword">from</span> dual <span class="keyword">connect</span> <span class="keyword">by</span> <span class="keyword">rownum</span> &lt;= REGEXP_COUNT(<span class="string">'01 = 1:02 = 2:03 = 3:04 = 4'</span>, <span class="string">'[^:]+'</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="1-5-REGEXP-COUNT"><a href="#1-5-REGEXP-COUNT" class="headerlink" title="1.5 REGEXP_COUNT"></a>1.5 REGEXP_COUNT</h4><p>REGEXP_COUNT函数可以取到有多少匹配的个数</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">     REGEXP_COUNT(<span class="string">'01 = 1:02 = 2:03 = 3:04 = 4'</span>, <span class="string">'[^:]+'</span>)</span><br><span class="line"><span class="keyword">from</span> dual</span><br></pre></td></tr></table></figure>
+<h4 id="1-6-REGEXP-SUBSTR和REGEXP-COUNT组合使用"><a href="#1-6-REGEXP-SUBSTR和REGEXP-COUNT组合使用" class="headerlink" title="1.6 REGEXP_SUBSTR和REGEXP_COUNT组合使用"></a>1.6 REGEXP_SUBSTR和REGEXP_COUNT组合使用</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">    REGEXP_SUBSTR(<span class="string">'01 = 1:02 = 2:03 = 3:04 = 4'</span>, <span class="string">'[^:]+'</span>, <span class="number">1</span>, <span class="keyword">rownum</span>) <span class="keyword">as</span> newport,<span class="keyword">rownum</span> <span class="keyword">as</span> hrow</span><br><span class="line"><span class="keyword">from</span> dual <span class="keyword">connect</span> <span class="keyword">by</span> <span class="keyword">rownum</span> &lt;= REGEXP_COUNT(<span class="string">'01 = 1:02 = 2:03 = 3:04 = 4'</span>, <span class="string">'[^:]+'</span>)</span><br></pre></td></tr></table></figure>
+
     </div>
     
         <div class="reward">
@@ -268,15 +278,10 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2019/03/07/gdb调试/" class="pre-post btn btn-default" title="gdb调试">
-            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">gdb调试</span>
-        </a>
     
-    
-        <a href="/2019/03/06/linux命令导航/" class="next-post btn btn-default" title="linux命令导航">
+        <a href="/2019/04/08/echarts-3D/" class="next-post btn btn-default" title="echarts_3D">
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">linux命令导航</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">echarts_3D</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -319,7 +324,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <p>暂无目录</p>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-ORACLE正则表达式函数"><span class="toc-text">1.ORACLE正则表达式函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-REGEXP-LIKE"><span class="toc-text">1.1 REGEXP_LIKE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-REGEXP-INSTR"><span class="toc-text">1.2 REGEXP_INSTR</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-REGEXP-REPLACE"><span class="toc-text">1.3 REGEXP_REPLACE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-REGEXP-SUBSTR"><span class="toc-text">1.4 REGEXP_SUBSTR</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-REGEXP-COUNT"><span class="toc-text">1.5 REGEXP_COUNT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-6-REGEXP-SUBSTR和REGEXP-COUNT组合使用"><span class="toc-text">1.6 REGEXP_SUBSTR和REGEXP_COUNT组合使用</span></a></li></ol></li></ol>
         
     </div>
 </aside>
