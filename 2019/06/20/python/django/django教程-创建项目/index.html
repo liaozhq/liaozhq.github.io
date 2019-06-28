@@ -1,0 +1,416 @@
+<!DOCTYPE HTML>
+<html lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="廖振钦的个人网站">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <link rel="dns-prefetch" href="https://liaozhq.github.io">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>一.django教程-创建运行项目 | 廖振钦的个人网站</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="廖振钦的个人网站" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(https://raw.githubusercontent.com/qincloud/cloudconfig/master/images/20190106/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="liaozq">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://liaozhq.github.io">廖振钦的个人网站</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/resume/"><i class="fa "></i>个人简历</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/prev/"><i class="fa "></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/linux/"><i class="fa "></i>linux</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/c/"><i class="fa "></i>c/c++</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/java/"><i class="fa "></i>java</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/golang/"><i class="fa "></i>golang</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/js/"><i class="fa "></i>javascript</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/database/"><i class="fa "></i>数据库</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/mechine/"><i class="fa "></i>机器学习</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/bigdata/"><i class="fa "></i>云计算/大数据</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/search/"><i class="fa "></i>搜索引擎</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/success/"><i class="fa "></i>成功学</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/bczx/"><i class="fa "></i>程序哲学</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/arch/"><i class="fa "></i>软件架构</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/algorithm/"><i class="fa "></i>数据结构/算法</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/zhongyi/"><i class="fa "></i>中医/养生/戒色</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/day/"><i class="fa "></i>日记</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/tool/"><i class="fa "></i>工具/中间件</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/server/"><i class="fa "></i>服务器</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/work/"><i class="fa "></i>work</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/hacker/"><i class="fa "></i>hacker</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="一.django教程-创建运行项目">
+            
+	            一.django教程-创建运行项目
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/python">
+            python
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/django教程" title="django教程">
+                        django教程
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/06/20</span>
+        </span>
+        
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="1-安装django"><a href="#1-安装django" class="headerlink" title="1.安装django"></a>1.安装django</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost] pip install Django</span><br></pre></td></tr></table></figure>
+<p>django源代码/bin目录下有个django-admin.py文件，这个文件在你安装django的时候编译成了二进制命令，其实也是python代码不过可以当二进制文件运行。</p>
+<h3 id="2-创建项目"><a href="#2-创建项目" class="headerlink" title="2.创建项目"></a>2.创建项目</h3><p>命令如下</p>
+<p>django-admin startproject 项目名称</p>
+<p>创建一个名为HelloWorld的项目</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]$  django-admin startproject HelloWorld</span><br></pre></td></tr></table></figure>
+<h3 id="3-运行项目"><a href="#3-运行项目" class="headerlink" title="3.运行项目"></a>3.运行项目</h3><h4 id="跳到HelloWorld项目下"><a href="#跳到HelloWorld项目下" class="headerlink" title="跳到HelloWorld项目下"></a>跳到HelloWorld项目下</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]$ <span class="built_in">cd</span> HelloWorld</span><br></pre></td></tr></table></figure>
+<h4 id="启动项目"><a href="#启动项目" class="headerlink" title="启动项目"></a>启动项目</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]$  python manage.py runserver</span><br></pre></td></tr></table></figure>
+<h3 id="4-运行项目遇到的异常"><a href="#4-运行项目遇到的异常" class="headerlink" title="4.运行项目遇到的异常"></a>4.运行项目遇到的异常</h3><h4 id="4-1-ModuleNotFoundError-No-module-named-‘-sqlite3’"><a href="#4-1-ModuleNotFoundError-No-module-named-‘-sqlite3’" class="headerlink" title="4.1 ModuleNotFoundError: No module named ‘_sqlite3’"></a>4.1 ModuleNotFoundError: No module named ‘_sqlite3’</h4><p>解决办法:</p>
+<p>安装sqlite</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install sqlite*</span><br></pre></td></tr></table></figure>
+<p>重新编译安装python3.6</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~/Python-3.6.1]$ ./configure --prefix=/usr/<span class="built_in">local</span>/python3</span><br><span class="line">[root@localhost ~/Python-3.6.1]$ make</span><br><span class="line">[root@localhost ~/Python-3.6.1]$ make install</span><br></pre></td></tr></table></figure>
+<p>然后在运行 python manage.py runserver 即可运行</p>
+<h4 id="4-2-django-core-exceptions-ImproperlyConfigured-SQLite-3-8-3-or-later-is-required-found-3-7-17"><a href="#4-2-django-core-exceptions-ImproperlyConfigured-SQLite-3-8-3-or-later-is-required-found-3-7-17" class="headerlink" title="4.2 django.core.exceptions.ImproperlyConfigured: SQLite 3.8.3 or later is required (found 3.7.17)."></a>4.2 django.core.exceptions.ImproperlyConfigured: SQLite 3.8.3 or later is required (found 3.7.17).</h4><p>我运行sqlite3 -version 版本已经是最新的了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">╭─root@localhost.localdomain /home/lzq/tool/Python-3.6.1  </span><br><span class="line">╰─➤  sqlite3 -version                                                     127 ↵</span><br><span class="line">3.25.3 2018-11-05 20:37:38 89e099fbe5e13c33e683bef07361231ca525b88f7907be7092058007b75036f2</span><br></pre></td></tr></table></figure>
+<p>但是还是报SQLite 3.8.3 or later is required (found 3.7.17).</p>
+<p>找到所有的sqlite3，然后发现/usr/bin/sqlite3的版本是3.7.17，/usr/local/bin/sqlite3的版本是3.25.3<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">╭─root@localhost.localdomain /home/lzq/tool/Python-3.6.1  </span><br><span class="line">╰─➤  find /usr/ -name sqlite3</span><br><span class="line">/usr/bin/sqlite3</span><br><span class="line">/usr/lib/vmware-installer/2.1.0/python/lib/sqlite3</span><br><span class="line">/usr/lib64/python2.7/sqlite3</span><br><span class="line">/usr/<span class="built_in">local</span>/bin/sqlite3</span><br><span class="line">/usr/<span class="built_in">local</span>/python3/lib/python3.6/site-packages/django/db/backends/sqlite3</span><br><span class="line">/usr/<span class="built_in">local</span>/python3/lib/python3.6/sqlite3</span><br><span class="line">/usr/<span class="built_in">local</span>/soft/pycharm/helpers/typeshed/stdlib/2and3/sqlite3</span><br><span class="line">╭─root@localhost.localdomain /home/lzq/tool/Python-3.6.1  </span><br><span class="line">╰─➤  /usr/bin/sqlite3 -version</span><br><span class="line">3.7.17 2013-05-20 00:56:22 118a3b35693b134d56ebd780123b7fd6f1497668</span><br></pre></td></tr></table></figure></p>
+<p>替换了/usr/bin/sqlite3之后还是报这个错</p>
+<p>然后我的解决办法:找到提示报错的代码文件注释掉下面的代码，就是比对数据库版本号的代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_sqlite_version</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">if</span> Database.sqlite_version_info &lt; (<span class="number">3</span>, <span class="number">8</span>, <span class="number">3</span>):</span><br><span class="line">        <span class="keyword">raise</span> ImproperlyConfigured(<span class="string">'SQLite 3.8.3 or later is required (found %s).'</span> % Database.sqlite_version)</span><br><span class="line">        </span><br><span class="line">check_sqlite_version()</span><br></pre></td></tr></table></figure>
+<p>然后启动成功</p>
+
+    </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="https://raw.githubusercontent.com/qincloud/cloudconfig/master/images/20181205/weixi.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip"></p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ©
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2019/06/24/java/elasticsearch/elasticsearch可视化工具/" class="pre-post btn btn-default" title="elasticsearch可视化工具">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">elasticsearch可视化工具</span>
+        </a>
+    
+    
+        <a href="/2019/06/16/中医/戒色/戒淫十三法/" class="next-post btn btn-default" title="戒淫十三法">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">戒淫十三法</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: ''.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-安装django"><span class="toc-text">1.安装django</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-创建项目"><span class="toc-text">2.创建项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-运行项目"><span class="toc-text">3.运行项目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#跳到HelloWorld项目下"><span class="toc-text">跳到HelloWorld项目下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#启动项目"><span class="toc-text">启动项目</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-运行项目遇到的异常"><span class="toc-text">4.运行项目遇到的异常</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-ModuleNotFoundError-No-module-named-‘-sqlite3’"><span class="toc-text">4.1 ModuleNotFoundError: No module named ‘_sqlite3’</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-django-core-exceptions-ImproperlyConfigured-SQLite-3-8-3-or-later-is-required-found-3-7-17"><span class="toc-text">4.2 django.core.exceptions.ImproperlyConfigured: SQLite 3.8.3 or later is required (found 3.7.17).</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <!--
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2018
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>-->
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>

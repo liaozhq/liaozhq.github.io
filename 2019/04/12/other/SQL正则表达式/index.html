@@ -1,0 +1,404 @@
+<!DOCTYPE HTML>
+<html lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="廖振钦的个人网站">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <link rel="dns-prefetch" href="https://liaozhq.github.io">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>SQL正则表达式 | 廖振钦的个人网站</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="廖振钦的个人网站" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(https://raw.githubusercontent.com/qincloud/cloudconfig/master/images/20190106/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="liaozq">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://liaozhq.github.io">廖振钦的个人网站</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/resume/"><i class="fa "></i>个人简历</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/prev/"><i class="fa "></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/linux/"><i class="fa "></i>linux</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/c/"><i class="fa "></i>c/c++</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/java/"><i class="fa "></i>java</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/golang/"><i class="fa "></i>golang</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/js/"><i class="fa "></i>javascript</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/database/"><i class="fa "></i>数据库</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/mechine/"><i class="fa "></i>机器学习</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/bigdata/"><i class="fa "></i>云计算/大数据</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/search/"><i class="fa "></i>搜索引擎</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/success/"><i class="fa "></i>成功学</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/bczx/"><i class="fa "></i>程序哲学</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/arch/"><i class="fa "></i>软件架构</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/algorithm/"><i class="fa "></i>数据结构/算法</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/zhongyi/"><i class="fa "></i>中医/养生/戒色</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/day/"><i class="fa "></i>日记</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/tool/"><i class="fa "></i>工具/中间件</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/server/"><i class="fa "></i>服务器</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/work/"><i class="fa "></i>work</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/hacker/"><i class="fa "></i>hacker</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="SQL正则表达式">
+            
+	            SQL正则表达式
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/database">
+            database
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/sql" title="sql">
+                        sql
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/04/12</span>
+        </span>
+        
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="1-ORACLE正则表达式函数"><a href="#1-ORACLE正则表达式函数" class="headerlink" title="1.ORACLE正则表达式函数"></a>1.ORACLE正则表达式函数</h3><h4 id="1-1-REGEXP-LIKE"><a href="#1-1-REGEXP-LIKE" class="headerlink" title="1.1 REGEXP_LIKE"></a>1.1 REGEXP_LIKE</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">select</span> SXZYY <span class="keyword">from</span> SW_ZH_ZHMX <span class="keyword">where</span> <span class="keyword">REGEXP_LIKE</span>(SXZYY, <span class="string">'^\w\d'</span>, <span class="string">'i'</span>); <span class="comment">-- 'i' 忽略大小写</span></span><br></pre></td></tr></table></figure>
+<p>SXZYY</p>
+<p>21321<br>1232<br>11<br>111<br>11<br>12<br>12312<br>231231<br>121<br>23<br>11111<br>2132132112<br>q1231<br>211111111111<br>2132131<br>2312321<br>111<br>23213<br>23213<br>10<br>11<br>1010<br>11<br>10<br>10<br>10<br>101<br>11<br>10<br>102<br>10<br>101<br>10<br>10<br>10<br>10<br>10<br>200<br>100<br>1000<br>123<br>231<br>1231<br>1231<br>1231    </p>
+<h4 id="1-2-REGEXP-INSTR"><a href="#1-2-REGEXP-INSTR" class="headerlink" title="1.2 REGEXP_INSTR"></a>1.2 REGEXP_INSTR</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> SXZYY, REGEXP_INSTR(SXZYY, <span class="string">'[3]'</span>), REGEXP_INSTR(SXZYY, <span class="string">'[q]'</span>)  <span class="keyword">from</span> SW_ZH_ZHMX <span class="keyword">where</span> <span class="keyword">REGEXP_LIKE</span>(SXZYY, <span class="string">'^\w\d'</span>);</span><br></pre></td></tr></table></figure>
+<p>SXZYY    REGEXP_INSTR(SXZYY,’[3]’)    REGEXP_INSTR(SXZYY,’[q]’)<br>21321    3    0<br>1232    3    0<br>11    0    0<br>111    0    0<br>11    0    0<br>12    0    0<br>12312    3    0<br>231231    2    0<br>121    0    0<br>23    2    0<br>11111    0    0<br>2132132112    3    0<br>q1231    4    1<br>211111111111    0    0<br>2132131    3    0<br>2312321    2    0<br>111    0    0<br>23213    2    0<br>23213    2    0<br>10    0    0<br>11    0    0<br>1010    0    0<br>11    0    0<br>10    0    0<br>10    0    0<br>10    0    0<br>101    0    0<br>11    0    0<br>10    0    0<br>102    0    0<br>10    0    0<br>101    0    0<br>10    0    0<br>10    0    0<br>10    0    0<br>10    0    0<br>10    0    0<br>200    0    0<br>100    0    0<br>1000    0    0<br>123    3    0<br>231    2    0<br>1231    3    0<br>1231    3    0<br>1231    3    0    </p>
+<h4 id="1-3-REGEXP-REPLACE"><a href="#1-3-REGEXP-REPLACE" class="headerlink" title="1.3 REGEXP_REPLACE"></a>1.3 REGEXP_REPLACE</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> SXZYY, REGEXP_REPLACE(SXZYY, <span class="string">'[1]'</span>, <span class="string">'L'</span>)  <span class="keyword">from</span> SW_ZH_ZHMX <span class="keyword">where</span> <span class="keyword">REGEXP_LIKE</span>(SXZYY, <span class="string">'^\w\d'</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="1-4-REGEXP-SUBSTR"><a href="#1-4-REGEXP-SUBSTR" class="headerlink" title="1.4 REGEXP_SUBSTR"></a>1.4 REGEXP_SUBSTR</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">    REGEXP_SUBSTR(<span class="string">'01 = 1:02 = 2:03 = 3:04 = 4'</span>, <span class="string">'[^:]+'</span>, <span class="number">1</span>, <span class="keyword">rownum</span>) <span class="keyword">as</span> newport,<span class="keyword">rownum</span> <span class="keyword">as</span> hrow</span><br><span class="line"><span class="keyword">from</span> dual <span class="keyword">connect</span> <span class="keyword">by</span> <span class="keyword">rownum</span> &lt;= REGEXP_COUNT(<span class="string">'01 = 1:02 = 2:03 = 3:04 = 4'</span>, <span class="string">'[^:]+'</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="1-5-REGEXP-COUNT"><a href="#1-5-REGEXP-COUNT" class="headerlink" title="1.5 REGEXP_COUNT"></a>1.5 REGEXP_COUNT</h4><p>REGEXP_COUNT函数可以取到有多少匹配的个数</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">     REGEXP_COUNT(<span class="string">'01 = 1:02 = 2:03 = 3:04 = 4'</span>, <span class="string">'[^:]+'</span>)</span><br><span class="line"><span class="keyword">from</span> dual</span><br></pre></td></tr></table></figure>
+<h4 id="1-6-REGEXP-SUBSTR和REGEXP-COUNT组合使用"><a href="#1-6-REGEXP-SUBSTR和REGEXP-COUNT组合使用" class="headerlink" title="1.6 REGEXP_SUBSTR和REGEXP_COUNT组合使用"></a>1.6 REGEXP_SUBSTR和REGEXP_COUNT组合使用</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">    REGEXP_SUBSTR(<span class="string">'01 = 1:02 = 2:03 = 3:04 = 4'</span>, <span class="string">'[^:]+'</span>, <span class="number">1</span>, <span class="keyword">rownum</span>) <span class="keyword">as</span> newport,<span class="keyword">rownum</span> <span class="keyword">as</span> hrow</span><br><span class="line"><span class="keyword">from</span> dual <span class="keyword">connect</span> <span class="keyword">by</span> <span class="keyword">rownum</span> &lt;= REGEXP_COUNT(<span class="string">'01 = 1:02 = 2:03 = 3:04 = 4'</span>, <span class="string">'[^:]+'</span>)</span><br></pre></td></tr></table></figure>
+
+    </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="https://raw.githubusercontent.com/qincloud/cloudconfig/master/images/20181205/weixi.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip"></p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ©
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2019/04/17/other/导致人生失败的30种原因/" class="pre-post btn btn-default" title="导致人生失败的30种原因">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">导致人生失败的30种原因</span>
+        </a>
+    
+    
+        <a href="/2019/04/08/other/echarts-3D/" class="next-post btn btn-default" title="echarts_3D">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">echarts_3D</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: ''.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-ORACLE正则表达式函数"><span class="toc-text">1.ORACLE正则表达式函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-REGEXP-LIKE"><span class="toc-text">1.1 REGEXP_LIKE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-REGEXP-INSTR"><span class="toc-text">1.2 REGEXP_INSTR</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-REGEXP-REPLACE"><span class="toc-text">1.3 REGEXP_REPLACE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-REGEXP-SUBSTR"><span class="toc-text">1.4 REGEXP_SUBSTR</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-REGEXP-COUNT"><span class="toc-text">1.5 REGEXP_COUNT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-6-REGEXP-SUBSTR和REGEXP-COUNT组合使用"><span class="toc-text">1.6 REGEXP_SUBSTR和REGEXP_COUNT组合使用</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <!--
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2018
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>-->
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>

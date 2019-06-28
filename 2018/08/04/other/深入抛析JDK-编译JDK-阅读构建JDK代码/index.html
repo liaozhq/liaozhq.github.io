@@ -1,0 +1,431 @@
+<!DOCTYPE HTML>
+<html lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="廖振钦的个人网站">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <link rel="dns-prefetch" href="https://liaozhq.github.io">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>深入抛析JDK(编译JDK,阅读构建JDK代码) | 廖振钦的个人网站</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="廖振钦的个人网站" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(https://raw.githubusercontent.com/qincloud/cloudconfig/master/images/20190106/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="liaozq">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://liaozhq.github.io">廖振钦的个人网站</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/resume/"><i class="fa "></i>个人简历</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/prev/"><i class="fa "></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/linux/"><i class="fa "></i>linux</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/c/"><i class="fa "></i>c/c++</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/java/"><i class="fa "></i>java</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/golang/"><i class="fa "></i>golang</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/js/"><i class="fa "></i>javascript</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/database/"><i class="fa "></i>数据库</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/mechine/"><i class="fa "></i>机器学习</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/bigdata/"><i class="fa "></i>云计算/大数据</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/search/"><i class="fa "></i>搜索引擎</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/success/"><i class="fa "></i>成功学</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/bczx/"><i class="fa "></i>程序哲学</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/arch/"><i class="fa "></i>软件架构</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/algorithm/"><i class="fa "></i>数据结构/算法</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/zhongyi/"><i class="fa "></i>中医/养生/戒色</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/day/"><i class="fa "></i>日记</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/tool/"><i class="fa "></i>工具/中间件</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/server/"><i class="fa "></i>服务器</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/work/"><i class="fa "></i>work</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/hacker/"><i class="fa "></i>hacker</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="深入抛析JDK(编译JDK,阅读构建JDK代码)">
+            
+	            深入抛析JDK(编译JDK,阅读构建JDK代码)
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/java">
+            java
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/jdk" title="jdk">
+                        jdk
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2018/08/04</span>
+        </span>
+        
+    
+</div>
+
+            
+            
+            <p class="fa fa-exclamation-triangle warning">
+                本文于<strong>328</strong>天之前发表，文中内容可能已经过时。
+            </p>
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <p>注:博主是在centos7上面进行编译的.</p>
+<h4 id="1-jdk代码管理"><a href="#1-jdk代码管理" class="headerlink" title="1.jdk代码管理"></a>1.jdk代码管理</h4><p><a href="http://hg.openjdk.java.net/" target="_blank" rel="noopener">openjdk源代码官网</a>各个版本的jdk源代码在上面都有</p>
+<p>openjdk源代码是用一个叫mercurial(轻量级分布式版本控制系统)的工具来管理源代码的</p>
+<p>首先下载安装<a href="https://mercurial.selenic.com/release/" target="_blank" rel="noopener">mercurial的源代码</a>下载完成后解压下来进入源代码文件夹</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost opnesource]<span class="comment"># tar -zxvf mercurial-4.6.tar.gz</span></span><br><span class="line">[root@localhost opnesource]<span class="comment"># cd mercurial-4.6</span></span><br></pre></td></tr></table></figure>
+<p>打开Ｍakefile文件找到export PREFIX=/usr/local可以指定安装目录修改完成后输入make install命令开始安装.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost mercurial-4.6]<span class="comment"># make install</span></span><br></pre></td></tr></table></figure>
+<p>安装完成后输入hg version有以下信息就表示可以了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost opensource]<span class="comment"># hg version</span></span><br><span class="line">分布式软件配置管理工具 - 水银 (版本 4.6)</span><br><span class="line">(see https://mercurial-scm.org <span class="keyword">for</span> more information)</span><br><span class="line"></span><br><span class="line">Copyright (C) 2005-2018 Matt Mackall and others</span><br><span class="line">This is free software; see the <span class="built_in">source</span> <span class="keyword">for</span> copying conditions. There is NO</span><br><span class="line">warranty; not even <span class="keyword">for</span> MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span><br><span class="line">[root@localhost jdk7u-dev]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<p>然后用命令将openjdk源代码clone下来</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost jdk]<span class="comment"># hg clone http://hg.openjdk.java.net/jdk7u/jdk7u-dev</span></span><br><span class="line">[root@localhost jdk]<span class="comment"># cd dk7u-dev                                    #进入代码文件夹</span></span><br><span class="line">[root@localhost dk7u-dev]<span class="comment"># chmod 755 get_source.sh    #进入代码文件夹授权get_source.sh文件</span></span><br><span class="line">[root@localhost jdk7u-dev]<span class="comment"># ./get_source.sh</span></span><br><span class="line"><span class="comment"># Repos:  jaxp jaxws jdk hotspot </span></span><br><span class="line">Starting on jaxp</span><br><span class="line">Starting on jaxws</span><br><span class="line">Starting on jdk</span><br><span class="line">Starting on hotspot</span><br><span class="line"><span class="comment"># hg clone http://hg.openjdk.java.net/jdk7u/jdk7u-dev/hotspot hotspot</span></span><br><span class="line">正在请求全部修改</span><br><span class="line">正在增加修改集</span><br><span class="line">正在增加清单</span><br><span class="line">事务中止!</span><br><span class="line">完成回滚</span><br><span class="line">中止: stream ended unexpectedly (got 10152 bytes, expected 19512)</span><br><span class="line"><span class="comment"># exit code 255</span></span><br><span class="line"><span class="comment"># hg clone http://hg.openjdk.java.net/jdk7u/jdk7u-dev/jaxp jaxp</span></span><br><span class="line">正在请求全部修改</span><br><span class="line">正在增加修改集</span><br><span class="line">正在增加清单</span><br><span class="line">正在增加文件改变</span><br><span class="line">已增加 1138 个修改集，包含 5685 个改变，修改了 4097 个文件</span><br><span class="line">new changesets 6ce5f4757bde:9af3447d957e</span><br><span class="line">updating to branch default</span><br><span class="line">2078 files updated, 0 files merged, 0 files removed, 0 files unresolved</span><br><span class="line"><span class="comment"># exit code 0</span></span><br><span class="line"><span class="comment"># hg clone http://hg.openjdk.java.net/jdk7u/jdk7u-dev/jaxws jaxws</span></span><br><span class="line">正在请求全部修改</span><br><span class="line">正在增加修改集</span><br><span class="line">正在增加清单</span><br><span class="line">正在增加文件改变</span><br><span class="line">事务中止!</span><br><span class="line">完成回滚</span><br><span class="line">中止: stream ended unexpectedly (got 14 bytes, expected 80)</span><br><span class="line"><span class="comment"># exit code 255</span></span><br><span class="line"><span class="comment"># hg clone http://hg.openjdk.java.net/jdk7u/jdk7u-dev/jdk jdk</span></span><br><span class="line">正在请求全部修改</span><br><span class="line">正在增加修改集</span><br><span class="line">正在增加清单</span><br><span class="line">正在增加文件改变</span><br><span class="line">已增加 7885 个修改集，包含 66961 个改变，修改了 22185 个文件</span><br><span class="line">new changesets 37a05a11f281:70e3553d9d6e</span><br><span class="line">updating to branch default</span><br><span class="line">20846 files updated, 0 files merged, 0 files removed, 0 files unresolved</span><br><span class="line"><span class="comment"># exit code 0</span></span><br><span class="line"><span class="comment"># Repos:  ./corba . ./hotspot ./jaxp ./jdk ./langtools </span></span><br><span class="line">Starting on ./corba</span><br><span class="line">Starting on .</span><br><span class="line">Starting on ./hotspot</span><br><span class="line">Starting on ./jaxp</span><br><span class="line">Starting on ./jdk</span><br><span class="line">Starting on ./langtools</span><br><span class="line"><span class="comment"># cd ./corba &amp;&amp; hg pull -u</span></span><br><span class="line">正在拉自 http://hg.openjdk.java.net/jdk7u/jdk7u-dev/corba</span><br><span class="line">正在搜索修改</span><br><span class="line">没有发现修改</span><br><span class="line"><span class="comment"># exit code 0</span></span><br><span class="line"><span class="comment"># cd ./hotspot &amp;&amp; hg pull -u</span></span><br><span class="line">正在拉自 http://hg.openjdk.java.net/jdk7u/jdk7u-dev/hotspot</span><br><span class="line">正在搜索修改</span><br><span class="line">没有发现修改</span><br><span class="line"><span class="comment"># exit code 0</span></span><br><span class="line"><span class="comment"># cd ./jaxp &amp;&amp; hg pull -u</span></span><br><span class="line">正在拉自 http://hg.openjdk.java.net/jdk7u/jdk7u-dev/jaxp</span><br><span class="line">正在搜索修改</span><br><span class="line">没有发现修改</span><br><span class="line"><span class="comment"># exit code 0</span></span><br><span class="line"><span class="comment"># cd . &amp;&amp; hg pull -u</span></span><br><span class="line">正在拉自 http://hg.openjdk.java.net/jdk7u/jdk7u-dev</span><br><span class="line">正在搜索修改</span><br><span class="line">没有发现修改</span><br><span class="line"><span class="comment"># exit code 0</span></span><br><span class="line"><span class="comment"># cd ./langtools &amp;&amp; hg pull -u</span></span><br><span class="line">正在拉自 http://hg.openjdk.java.net/jdk7u/jdk7u-dev/langtools</span><br><span class="line">正在搜索修改</span><br><span class="line">没有发现修改</span><br><span class="line"><span class="comment"># exit code 0</span></span><br><span class="line"><span class="comment"># cd ./jdk &amp;&amp; hg pull -u</span></span><br><span class="line">正在拉自 http://hg.openjdk.java.net/jdk7u/jdk7u-dev/jdk</span><br><span class="line">正在搜索修改</span><br><span class="line">没有发现修改</span><br><span class="line"><span class="comment"># exit code 0</span></span><br></pre></td></tr></table></figure>
+<p>如果发现有exit code 255应该是下载失败了,需要从新clone</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost jdk7u-dev]<span class="comment"># hg clone http://hg.openjdk.java.net/jdk7u/jdk7u-dev/hotspot </span></span><br><span class="line">[root@localhost jdk7u-dev]<span class="comment"># hg clone http://hg.openjdk.java.net/jdk7u/jdk7u-dev/jaxws</span></span><br></pre></td></tr></table></figure>
+<p>代码确认下载完成后就可以开始编译了.</p>
+<h4 id="2-开始编译jdk代码"><a href="#2-开始编译jdk代码" class="headerlink" title="2.开始编译jdk代码"></a>2.开始编译jdk代码</h4><h5 id="2-1-设置编译环境变量"><a href="#2-1-设置编译环境变量" class="headerlink" title="2.1 设置编译环境变量"></a>2.1 设置编译环境变量</h5><p>执行下面的命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> LANG=C</span><br><span class="line"><span class="built_in">export</span> ALT_BOOTDIR=/usr/<span class="built_in">local</span>/jdk1.7/            <span class="comment">#设置jdk</span></span><br><span class="line"><span class="built_in">export</span> ALLOW_DOWNLOADS=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> HOTSPOT_BUILD_JOBS=6</span><br><span class="line"><span class="built_in">export</span> ALT_PATALLER_COMPILE_JOBS=6</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> SKIP_COMPARE_IMAGES=<span class="literal">true</span></span><br><span class="line"><span class="built_in">export</span> USE_PRECOMPILED_HEADER=<span class="literal">true</span></span><br><span class="line"><span class="built_in">export</span> BUILD_LANGTOOLS=<span class="literal">true</span></span><br><span class="line"><span class="built_in">export</span> BUILD_HOTSPOT=<span class="literal">true</span>            <span class="comment">#设置是否编译HOTSPOT模块</span></span><br><span class="line"><span class="built_in">export</span> BUILD_JDK=<span class="literal">true</span>             <span class="comment">#设置是否编译JDK模块</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> BUILD_JAXP=<span class="literal">true</span>            <span class="comment">#设置是否编译JAXP模块 </span></span><br><span class="line"><span class="built_in">export</span> BUILD_JAXWS=<span class="literal">true</span>        <span class="comment">#设置是否编译JAXWS模块</span></span><br><span class="line"><span class="built_in">export</span> BUILD_CORBA=<span class="literal">true</span>       <span class="comment">#设置是否编译CORBA模块</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#export SKIP_DEBUG_BUILD=false</span></span><br><span class="line"><span class="comment">#export SKIP_FASTDEBUG_BUILD=true</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">BUILD_DEPLOY=<span class="literal">false</span></span><br><span class="line">BUILD_INSTALL=<span class="literal">false</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> ALT_OUTPUTDIR=/root/temp/jdk7u 　　　　　　　<span class="comment">#输出的位置　</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#export CORBA_DIST=$ALT_OUTPUTDIR/corba/dist</span></span><br><span class="line"><span class="comment">#export JAXP_DIST=$ALT_OUTPUTDIR/jaxp/dist</span></span><br><span class="line"><span class="comment">#export JAXWS_DIST=$ALT_OUTPUTDIR/jaxws/dist</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">unset</span> JAVA_HOME        <span class="comment">#卸载JAVA_HOME</span></span><br><span class="line"><span class="built_in">unset</span> CLASSPATH        <span class="comment">#卸载CLASSPATH</span></span><br><span class="line"><span class="built_in">unset</span> JAVA_OPTS</span><br></pre></td></tr></table></figure></p>
+<h5 id="2-2依赖环境安装"><a href="#2-2依赖环境安装" class="headerlink" title="2.2依赖环境安装"></a>2.2依赖环境安装</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost jdk7u-dev]<span class="comment"># yum install -y ant ant-nodeps       #如果电脑上有ant可以跳过这一步</span></span><br><span class="line">[root@localhost jdk7u-dev]<span class="comment"># yum install -y libX11* libX*</span></span><br><span class="line">[root@localhost jdk7u-dev]<span class="comment"># yum install -y libXi-devel libXtst-devel libXt-devel freetype* </span></span><br><span class="line">[root@localhost jdk7u-dev]<span class="comment"># yum install -y alsa-lib-devel cups-devel</span></span><br></pre></td></tr></table></figure>
+<p>如果不安装这些依赖可能会报错.</p>
+<h5 id="2-3开始编译"><a href="#2-3开始编译" class="headerlink" title="2.3开始编译"></a>2.3开始编译</h5><p>上面的命令执行成功后就可以使用make命令开始编译了.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost jdk7u-dev]<span class="comment"># make</span></span><br></pre></td></tr></table></figure></p>
+<p>执行make报了下面这个错误</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.UnsupportedClassVersionError: org/apache/tools/ant/launch/Launcher : Unsupported major.minor version 52.0</span><br><span class="line">	at java.lang.ClassLoader.defineClass1(Native Method)</span><br><span class="line">	at java.lang.ClassLoader.defineClass(ClassLoader.java:800)</span><br><span class="line">	at java.security.SecureClassLoader.defineClass(SecureClassLoader.java:142)</span><br><span class="line">	at java.net.URLClassLoader.defineClass(URLClassLoader.java:449)</span><br><span class="line">	at java.net.URLClassLoader.access$100(URLClassLoader.java:71)</span><br><span class="line">	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)</span><br><span class="line">	at java.net.URLClassLoader$1.run(URLClassLoader.java:355)</span><br><span class="line">	at java.security.AccessController.doPrivileged(Native Method)</span><br><span class="line">	at java.net.URLClassLoader.findClass(URLClassLoader.java:354)</span><br><span class="line">	at java.lang.ClassLoader.loadClass(ClassLoader.java:425)</span><br><span class="line">	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)</span><br><span class="line">	at java.lang.ClassLoader.loadClass(ClassLoader.java:358)</span><br><span class="line">	at sun.launcher.LauncherHelper.checkAndLoadMain(LauncherHelper.java:482)</span><br></pre></td></tr></table></figure>
+<p>这是因为设置export ALT_BOOTDIR设置的是JDK1.7的，出现这个错误是因为用高版本的的JDK编译的class放到低版本来执行才会出现这个错误</p>
+<p>我编译的JDK是1.7所以要设置1.6的JDK才行</p>
+<p>但是本宝宝后来想了想觉得编译1.7的版本太低了,就索性直接编译JDK1.8的吧.</p>
+<h6 id="2-3-1下载jdk1-8"><a href="#2-3-1下载jdk1-8" class="headerlink" title="2.3.1下载jdk1.8"></a>2.3.1下载jdk1.8</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost jdk]<span class="comment"># hg clone http://hg.openjdk.java.net/jdk8u/jdk8u-dev</span></span><br></pre></td></tr></table></figure>
+<p>下载步骤同上代码要保证都下载完成,因为这个有点不稳定可能某些模块下载失败,下载失败就手动执行命令下载.</p>
+<h6 id="2-3-2编译jdk1-8"><a href="#2-3-2编译jdk1-8" class="headerlink" title="2.3.2编译jdk1.8"></a>2.3.2编译jdk1.8</h6><p>cd进入1.8代码目录,而且要把环境变量的设置都执行一遍和上面2.1一样,然后授权configure文件，授权后执行configure文件，就会生成一个build文件夹等下编译的内容全部会在这个文件夹下面．</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost jdk]<span class="comment"># cd jdk8u-dev</span></span><br><span class="line">[root@localhost jdk8u-dev]<span class="comment"># chmod +x configure</span></span><br><span class="line">[root@localhost jdk8u-dev]<span class="comment"># configure</span></span><br></pre></td></tr></table></figure>
+<p>最后一步执行make</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost jdk8u-dev]<span class="comment"># make</span></span><br></pre></td></tr></table></figure>
+<p>这一步等时间比较长,执行完后如果没有error就表示编译成功了.</p>
+<p>然后打开build下面的那个文件夹<br><img src="https://raw.githubusercontent.com/qincloud/cloudconfig/master/images/20180805/2018-08-05%2011-36-42%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png" alt="image"></p>
+<p>hotspot,jaxp,corba,jaxws,jdk,langtools编译后的文件都有然后打开jdk文件夹</p>
+<p><img src="https://raw.githubusercontent.com/qincloud/cloudconfig/master/images/20180805/2018-08-05%2011-37-55%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png" alt="image"></p>
+<p>进入bin文件夹</p>
+<p><img src="https://raw.githubusercontent.com/qincloud/cloudconfig/master/images/20180805/2018-08-05%2011-38-32%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png" alt="image"></p>
+<p>java,javac,jmap,jps等java二进制文件都在然后执行./java -version</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost bin]<span class="comment"># ./java -version</span></span><br><span class="line">openjdk version <span class="string">"1.8.0-internal"</span></span><br><span class="line">OpenJDK Runtime Environment (build 1.8.0-internal-lzq996298643_2018_08_05_10_25-b00)</span><br><span class="line">OpenJDK 64-Bit Server VM (build 25.71-b00, mixed mode)</span><br></pre></td></tr></table></figure>
+<p>看到了版本为openjdk version “1.8.0-internal”.</p>
+
+    </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="https://raw.githubusercontent.com/qincloud/cloudconfig/master/images/20181205/weixi.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip"></p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ©
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2018/12/05/other/linux常用命令查询/" class="pre-post btn btn-default" title="linux常用命令查询">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">linux常用命令查询</span>
+        </a>
+    
+    
+</div>
+
+
+    <div id="comments">
+        
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: ''.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-jdk代码管理"><span class="toc-text">1.jdk代码管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-开始编译jdk代码"><span class="toc-text">2.开始编译jdk代码</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-设置编译环境变量"><span class="toc-text">2.1 设置编译环境变量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2依赖环境安装"><span class="toc-text">2.2依赖环境安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3开始编译"><span class="toc-text">2.3开始编译</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#2-3-1下载jdk1-8"><span class="toc-text">2.3.1下载jdk1.8</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-3-2编译jdk1-8"><span class="toc-text">2.3.2编译jdk1.8</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <!--
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2018
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>-->
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>

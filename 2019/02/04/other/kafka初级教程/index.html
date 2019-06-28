@@ -1,0 +1,421 @@
+<!DOCTYPE HTML>
+<html lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="廖振钦的个人网站">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <link rel="dns-prefetch" href="https://liaozhq.github.io">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>kafka初级教程 | 廖振钦的个人网站</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="廖振钦的个人网站" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(https://raw.githubusercontent.com/qincloud/cloudconfig/master/images/20190106/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="liaozq">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://liaozhq.github.io">廖振钦的个人网站</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/resume/"><i class="fa "></i>个人简历</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/prev/"><i class="fa "></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/linux/"><i class="fa "></i>linux</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/c/"><i class="fa "></i>c/c++</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/java/"><i class="fa "></i>java</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/golang/"><i class="fa "></i>golang</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/js/"><i class="fa "></i>javascript</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/database/"><i class="fa "></i>数据库</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/mechine/"><i class="fa "></i>机器学习</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/bigdata/"><i class="fa "></i>云计算/大数据</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/search/"><i class="fa "></i>搜索引擎</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/success/"><i class="fa "></i>成功学</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/bczx/"><i class="fa "></i>程序哲学</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/arch/"><i class="fa "></i>软件架构</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/algorithm/"><i class="fa "></i>数据结构/算法</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/zhongyi/"><i class="fa "></i>中医/养生/戒色</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/day/"><i class="fa "></i>日记</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/tool/"><i class="fa "></i>工具/中间件</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/server/"><i class="fa "></i>服务器</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/work/"><i class="fa "></i>work</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/hacker/"><i class="fa "></i>hacker</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="kafka初级教程">
+            
+	            kafka初级教程
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/tool">
+            tool
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/kafka" title="kafka">
+                        kafka
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/02/04</span>
+        </span>
+        
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="1-kafka环境配置"><a href="#1-kafka环境配置" class="headerlink" title="1.kafka环境配置"></a>1.kafka环境配置</h3><h4 id="1-1-下载kafka"><a href="#1-1-下载kafka" class="headerlink" title="1.1 下载kafka"></a>1.1 下载kafka</h4><p><a href="http://kafka.apache.org/" target="_blank" rel="noopener">kafka官方网站</a></p>
+<p><a href="http://kafka.apache.org/downloads" target="_blank" rel="noopener">kafka官方下载页面</a></p>
+<p>我下载的是<a href="http://mirrors.tuna.tsinghua.edu.cn/apache/kafka/1.1.0/kafka_2.12-1.1.0.tgz" target="_blank" rel="noopener">kafka_2.12-1.0.1.tgz</a>(点击下载链接即可下载)</p>
+<p>下载完成后解压到/usr/local/下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mv kafka_2.12-1.0.1.tgz /usr/<span class="built_in">local</span>/</span><br><span class="line">$ <span class="built_in">cd</span> /usr/<span class="built_in">local</span>/</span><br><span class="line">$ tar -zxvf kafka_2.12-1.0.1.tgz</span><br><span class="line">$ mv kafka_2.12-1.0.1 kafka</span><br></pre></td></tr></table></figure></p>
+<h4 id="1-2-下载zookeeper"><a href="#1-2-下载zookeeper" class="headerlink" title="1.2 下载zookeeper"></a>1.2 下载zookeeper</h4><p><a href="http://mirrors.shu.edu.cn/apache/zookeeper/" target="_blank" rel="noopener">zookeeper下载地址</a></p>
+<p>下载完成后解压到/usr/local</p>
+<h4 id="1-3-配置文件修改"><a href="#1-3-配置文件修改" class="headerlink" title="1.3 配置文件修改"></a>1.3 配置文件修改</h4><p>到zookeeper/conf下修改zoo.cfg文件</p>
+<p>修改内容如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tickTime=2000</span><br><span class="line">initLimit=10</span><br><span class="line">syncLimit=5</span><br><span class="line">dataDir=/data/zookeeper</span><br><span class="line">clientPort=2181  <span class="comment">#端口</span></span><br></pre></td></tr></table></figure>
+<p>然后修改kafka的配置文件</p>
+<p>kafka/config/server.properties文件,内容如下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">broker.id=0</span><br><span class="line">advertised.listeners=PLAINTEXT://master:9092</span><br><span class="line">listeners=PLAINTEXT://master:9092</span><br><span class="line">num.network.threads=3</span><br><span class="line">num.io.threads=8</span><br><span class="line">socket.send.buffer.bytes=102400</span><br><span class="line">socket.receive.buffer.bytes=102400</span><br><span class="line">socket.request.max.bytes=104857600</span><br><span class="line">log.dirs=/data/kafka-logs</span><br><span class="line">num.partitions=1</span><br><span class="line">num.recovery.threads.per.data.dir=1</span><br><span class="line">offsets.topic.replication.factor=1</span><br><span class="line">transaction.state.log.replication.factor=1</span><br><span class="line">transaction.state.log.min.isr=1</span><br><span class="line">log.retention.hours=168</span><br><span class="line">log.segment.bytes=1073741824</span><br><span class="line">log.retention.check.interval.ms=300000</span><br><span class="line">zookeeper.connect=localhost:2181   <span class="comment">#要和zookeeper配置的端口一致</span></span><br><span class="line">zookeeper.connection.timeout.ms=6000</span><br></pre></td></tr></table></figure>
+<p>创建2个新文件夹并授权</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost config]<span class="comment"># mkdir /data/kafka-logs</span></span><br><span class="line">[root@localhost config]<span class="comment"># mkdir /data/zookeeper_data</span></span><br><span class="line">[root@localhost config]<span class="comment"># chown lzq996298643:lzq996298643 -R /data/kafka-logs</span></span><br><span class="line">[root@localhost config]<span class="comment"># chown lzq996298643:lzq996298643 -R /data/zookeeper_data</span></span><br></pre></td></tr></table></figure>
+<p>启动kafka自带的zookeeper和kafka启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost bin]<span class="comment"># cd /usr/local/kafka/bin</span></span><br><span class="line">[root@localhost bin]<span class="comment"># ll</span></span><br><span class="line">总用量 128</span><br><span class="line">-rwxr-xr-x. 1 root root 1335 2月  22 06:26 connect-distributed.sh</span><br><span class="line">-rwxr-xr-x. 1 root root 1332 2月  22 06:26 connect-standalone.sh</span><br><span class="line">-rwxr-xr-x. 1 root root  861 2月  22 06:26 kafka-acls.sh</span><br><span class="line">-rwxr-xr-x. 1 root root  873 2月  22 06:26 kafka-broker-api-versions.sh</span><br><span class="line">-rwxr-xr-x. 1 root root  864 2月  22 06:26 kafka-configs.sh</span><br><span class="line">-rwxr-xr-x. 1 root root  945 2月  22 06:26 kafka-console-consumer.sh</span><br><span class="line">-rwxr-xr-x. 1 root root  944 2月  22 06:26 kafka-console-producer.sh</span><br><span class="line">-rwxr-xr-x. 1 root root  871 2月  22 06:26 kafka-consumer-groups.sh</span><br><span class="line">-rwxr-xr-x. 1 root root  948 2月  22 06:26 kafka-consumer-perf-test.sh</span><br><span class="line">-rwxr-xr-x. 1 root root  869 2月  22 06:26 kafka-delete-records.sh</span><br><span class="line">-rwxr-xr-x. 1 root root  863 2月  22 06:26 kafka-log-dirs.sh</span><br><span class="line">-rwxr-xr-x. 1 root root  862 2月  22 06:26 kafka-mirror-maker.sh</span><br><span class="line">-rwxr-xr-x. 1 root root  886 2月  22 06:26 kafka-preferred-replica-election.sh</span><br><span class="line">-rwxr-xr-x. 1 root root  959 2月  22 06:26 kafka-producer-perf-test.sh</span><br><span class="line">-rwxr-xr-x. 1 root root  874 2月  22 06:26 kafka-reassign-partitions.sh</span><br><span class="line">-rwxr-xr-x. 1 root root  868 2月  22 06:26 kafka-replay-log-producer.sh</span><br><span class="line">-rwxr-xr-x. 1 root root  874 2月  22 06:26 kafka-replica-verification.sh</span><br><span class="line">-rwxr-xr-x. 1 root root 7579 2月  22 06:26 kafka-run-class.sh</span><br><span class="line">-rwxr-xr-x. 1 root root 1376 2月  22 06:26 kafka-server-start.sh</span><br><span class="line">-rwxr-xr-x. 1 root root  975 2月  22 06:26 kafka-server-stop.sh</span><br><span class="line">-rwxr-xr-x. 1 root root  870 2月  22 06:26 kafka-simple-consumer-shell.sh</span><br><span class="line">-rwxr-xr-x. 1 root root  945 2月  22 06:26 kafka-streams-application-reset.sh</span><br><span class="line">-rwxr-xr-x. 1 root root  863 2月  22 06:26 kafka-topics.sh</span><br><span class="line">-rwxr-xr-x. 1 root root  958 2月  22 06:26 kafka-verifiable-consumer.sh</span><br><span class="line">-rwxr-xr-x. 1 root root  958 2月  22 06:26 kafka-verifiable-producer.sh</span><br><span class="line">-rwxr-xr-x. 1 root root 1722 2月  22 06:26 trogdor.sh</span><br><span class="line">drwxr-xr-x. 2 root root 4096 2月  22 06:26 windows</span><br><span class="line">-rwxr-xr-x. 1 root root  867 2月  22 06:26 zookeeper-security-migration.sh</span><br><span class="line">-rwxr-xr-x. 1 root root 1393 2月  22 06:26 zookeeper-server-start.sh</span><br><span class="line">-rwxr-xr-x. 1 root root  978 2月  22 06:26 zookeeper-server-stop.sh</span><br><span class="line">-rwxr-xr-x. 1 root root  968 2月  22 06:26 zookeeper-shell.sh</span><br></pre></td></tr></table></figure>
+<p>bin目录下面有zookeeper和kafka的启动脚本文件</p>
+<p>可以直接使用kafka自带的zookeeper</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost bin]<span class="comment"># ./zookeeper-server-start.sh /usr/local/kafka/config/zookeeper.properties</span></span><br><span class="line">[root@localhost bin]<span class="comment"># ./kafka-server-start.sh /usr/local/kafka/config/server.properties</span></span><br></pre></td></tr></table></figure>
+<p>当然也可以启动你自己下载的zookeeper</p>
+<h4 id="1-4-运行kafka遇到的问题"><a href="#1-4-运行kafka遇到的问题" class="headerlink" title="1.4 运行kafka遇到的问题"></a>1.4 运行kafka遇到的问题</h4><p>server.properties配置文件中下面两行最好设置本机ip地址不要设置localhost</p>
+<p>advertised.listeners=PLAINTEXT://master:9092</p>
+<p>listeners=PLAINTEXT://master:9092</p>
+<p>运行./kafka-server-start.sh /usr/local/kafka/config/server.properties<br>然后访问<a href="http://master:9092没有报错就说明启动成功了" target="_blank" rel="noopener">http://master:9092没有报错就说明启动成功了</a></p>
+<h3 id="2-使用kafka"><a href="#2-使用kafka" class="headerlink" title="2.使用kafka"></a>2.使用kafka</h3><h4 id="2-1-命令行中测试kafka"><a href="#2-1-命令行中测试kafka" class="headerlink" title="2.1 命令行中测试kafka"></a>2.1 命令行中测试kafka</h4><h5 id="2-1-1创建一个消息创建者"><a href="#2-1-1创建一个消息创建者" class="headerlink" title="2.1.1创建一个消息创建者"></a>2.1.1创建一个消息创建者</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master bin]<span class="comment"># ./kafka-console-producer.sh --broker-list 192.168.0.128:9092 --top test</span></span><br></pre></td></tr></table></figure>
+<h5 id="2-1-2创建一个消息消费者"><a href="#2-1-2创建一个消息消费者" class="headerlink" title="2.1.2创建一个消息消费者"></a>2.1.2创建一个消息消费者</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master bin]<span class="comment"># ./kafka-console-consumer.sh --zookeeper 192.168.0.128:2181 --topic test --from-beginning</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-2-kafka命令脚本"><a href="#2-2-kafka命令脚本" class="headerlink" title="2.2 kafka命令脚本"></a>2.2 kafka命令脚本</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment">#前台启动zk</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$1</span> = <span class="string">"zk"</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">zookeeper-server-start.sh /data/kafka_2.11-0.10.1.0/config/zookeeper.properties</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#后台启动zk</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">elif</span> [ <span class="variable">$1</span> = <span class="string">"zkbg"</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">nohup zookeeper-server-start.sh /data/kafka_2.11-0.10.1.0/config/zookeeper.properties &gt;/dev/null 2&gt;&amp;1 &amp;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#关闭zk</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">elif</span> [ <span class="variable">$1</span> = <span class="string">"zkstop"</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">zookeeper-server-stop.sh</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#前台启动kafka</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">elif</span> [ <span class="variable">$1</span> = <span class="string">"kafka"</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">kafka-server-start.sh /data/kafka_2.11-0.10.1.0/config/server.properties</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#后台启动kafka</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">elif</span> [ <span class="variable">$1</span> = <span class="string">"kafkabg"</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">nohup kafka-server-start.sh /data/kafka_2.11-0.10.1.0/config/server.properties &gt;/dev/null 2&gt;&amp;1 &amp;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#关闭kafka</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">elif</span> [ <span class="variable">$1</span> = <span class="string">"kafkastop"</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">kafka-server-stop.sh</span><br><span class="line"></span><br><span class="line"><span class="keyword">elif</span> [ <span class="variable">$1</span> = <span class="string">"consumer"</span> ] <span class="comment">#创建一个消费者</span></span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning  --topic <span class="variable">$2</span></span><br><span class="line"><span class="keyword">elif</span> [ <span class="variable">$1</span> = <span class="string">"producer"</span> ] <span class="comment">#创建一个生产者</span></span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">kafka-console-producer.sh --broker-list master:9092 --topic <span class="variable">$2</span></span><br><span class="line"><span class="keyword">elif</span> [ <span class="variable">$1</span> = <span class="string">"create"</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic <span class="variable">$2</span> <span class="comment">#创建topic</span></span><br><span class="line"><span class="keyword">elif</span> [ <span class="variable">$1</span> = <span class="string">"list"</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">kafka-topics.sh --list --zookeeper localhost:2181 <span class="comment">#查看topic</span></span><br><span class="line"><span class="keyword">elif</span> [ <span class="variable">$1</span> = <span class="string">"delete"</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">kafka-topics.sh --delete --zookeeper localhost:2181 --topic <span class="variable">$2</span> <span class="comment">#删除topic</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"parameter invalid"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+    </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="https://raw.githubusercontent.com/qincloud/cloudconfig/master/images/20181205/weixi.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip"></p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ©
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2019/02/08/other/rabbitmq搭建/" class="pre-post btn btn-default" title="rabbitmq搭建">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">rabbitmq搭建</span>
+        </a>
+    
+    
+        <a href="/2019/01/16/other/centos7下redis编译安装/" class="next-post btn btn-default" title="centos7下redis编译安装">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">centos7下redis编译安装</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: ''.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-kafka环境配置"><span class="toc-text">1.kafka环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-下载kafka"><span class="toc-text">1.1 下载kafka</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-下载zookeeper"><span class="toc-text">1.2 下载zookeeper</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-配置文件修改"><span class="toc-text">1.3 配置文件修改</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-运行kafka遇到的问题"><span class="toc-text">1.4 运行kafka遇到的问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-使用kafka"><span class="toc-text">2.使用kafka</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-命令行中测试kafka"><span class="toc-text">2.1 命令行中测试kafka</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-1创建一个消息创建者"><span class="toc-text">2.1.1创建一个消息创建者</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-2创建一个消息消费者"><span class="toc-text">2.1.2创建一个消息消费者</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-kafka命令脚本"><span class="toc-text">2.2 kafka命令脚本</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <!--
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2018
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>-->
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
