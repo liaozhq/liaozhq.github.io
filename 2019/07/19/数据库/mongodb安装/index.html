@@ -1,0 +1,404 @@
+<!DOCTYPE HTML>
+<html lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="廖振钦的个人网站">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <link rel="dns-prefetch" href="https://liaozhq.github.io">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>centos7下mongodb安装 | 廖振钦的个人网站</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="廖振钦的个人网站" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(https://raw.githubusercontent.com/qincloud/cloudconfig/master/images/20190106/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="liaozq">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://liaozhq.github.io">廖振钦的个人网站</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/resume/"><i class="fa "></i>个人简历</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/prev/"><i class="fa "></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/linux/"><i class="fa "></i>linux</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/c/"><i class="fa "></i>c/c++</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/java/"><i class="fa "></i>java</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/golang/"><i class="fa "></i>golang</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/js/"><i class="fa "></i>javascript</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/database/"><i class="fa "></i>数据库</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/mechine/"><i class="fa "></i>机器学习</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/bigdata/"><i class="fa "></i>云计算/大数据</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/search/"><i class="fa "></i>搜索引擎</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/success/"><i class="fa "></i>成功学</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/bczx/"><i class="fa "></i>程序哲学</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/arch/"><i class="fa "></i>软件架构</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/algorithm/"><i class="fa "></i>数据结构/算法</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/zhongyi/"><i class="fa "></i>中医/养生/戒色</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/day/"><i class="fa "></i>日记</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/tool/"><i class="fa "></i>工具/中间件</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/server/"><i class="fa "></i>服务器</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/work/"><i class="fa "></i>work</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/hacker/"><i class="fa "></i>hacker</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="centos7下mongodb安装">
+            
+	            centos7下mongodb安装
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/database">
+            database
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/07/19</span>
+        </span>
+        
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="1-下载mongodb"><a href="#1-下载mongodb" class="headerlink" title="1.下载mongodb"></a>1.下载mongodb</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">╭─lzq@localhost.localdomain ~  </span><br><span class="line">╰─➤  <span class="built_in">cd</span> /usr/<span class="built_in">local</span></span><br><span class="line">╭─lzq@localhost.localdomain /usr/<span class="built_in">local</span>  </span><br><span class="line">╰─➤  su</span><br><span class="line">密码：</span><br><span class="line">╭─root@localhost.localdomain /usr/<span class="built_in">local</span>                <span class="comment">#下载命令</span></span><br><span class="line">╰─➤  wget -XGET https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel70-4.0.2.tgz</span><br><span class="line">--2019-07-19 10:07:14--  https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel70-4.0.2.tgz</span><br><span class="line">正在连接 127.0.0.1:8118... 已连接。</span><br><span class="line">已发出 Proxy 请求，正在等待回应... 200 OK</span><br><span class="line">长度：84586631 (81M) [application/x-gzip]</span><br><span class="line">正在保存至: “mongodb-linux-x86_64-rhel70-4.0.2.tgz”</span><br><span class="line"></span><br><span class="line">100%[======================================&gt;] 84,586,631  5.06MB/s 用时 20s    </span><br><span class="line"></span><br><span class="line">2019-07-19 10:07:40 (4.14 MB/s) - 已保存 “mongodb-linux-x86_64-rhel70-4.0.2.tgz” [84586631/84586631])</span><br><span class="line">╭─root@localhost.localdomain /usr/<span class="built_in">local</span>                <span class="comment">#解压命令</span></span><br><span class="line">╰─➤  tar -zxvf mongodb-linux-x86_64-rhel70-4.0.2.tgz</span><br><span class="line">╭─root@localhost.localdomain /usr/<span class="built_in">local</span>  </span><br><span class="line">╰─➤  mv mongodb-linux-x86_64-rhel70-4.0.2 mongodb</span><br></pre></td></tr></table></figure>
+<h3 id="2-配置文件"><a href="#2-配置文件" class="headerlink" title="2.配置文件"></a>2.配置文件</h3><h4 id="2-1mongo配置"><a href="#2-1mongo配置" class="headerlink" title="2.1mongo配置"></a>2.1mongo配置</h4><p>在/usr/local/mongodb/bin下创建一个mongodb.conf文件copy如下内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 日志文件位置</span><br><span class="line">logpath=/usr/local/mongodb/logs</span><br><span class="line"></span><br><span class="line"># 数据库文件位置</span><br><span class="line">dbpath=/usr/local/mongodb/data</span><br><span class="line"></span><br><span class="line"># 以追加方式写入日志</span><br><span class="line">logappend=true</span><br><span class="line"></span><br><span class="line"># 是否以守护进程方式运行</span><br><span class="line">fork = true</span><br><span class="line"></span><br><span class="line"># 默认27017</span><br><span class="line">port = 27017</span><br><span class="line"></span><br><span class="line">#绑定ip</span><br><span class="line">bind_ip=127.0.0.1</span><br></pre></td></tr></table></figure>
+<h5 id="2-1-1创建日志文件和数据库文件夹"><a href="#2-1-1创建日志文件和数据库文件夹" class="headerlink" title="2.1.1创建日志文件和数据库文件夹"></a>2.1.1创建日志文件和数据库文件夹</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">╭─root@localhost.localdomain /usr/<span class="built_in">local</span>  </span><br><span class="line">╰─➤  touch /usr/<span class="built_in">local</span>/mongodb/logs</span><br><span class="line">╭─root@localhost.localdomain /usr/<span class="built_in">local</span>  </span><br><span class="line">╰─➤  mkdir /usr/<span class="built_in">local</span>/mongodb/data</span><br></pre></td></tr></table></figure>
+<h4 id="2-2配置文件详解"><a href="#2-2配置文件详解" class="headerlink" title="2.2配置文件详解"></a>2.2配置文件详解</h4><p><a href="https://www.jianshu.com/p/ba63f6c5ad04" target="_blank" rel="noopener">参考博客</a></p>
+<h3 id="3-启动"><a href="#3-启动" class="headerlink" title="3.启动"></a>3.启动</h3><h4 id="3-1启动命令"><a href="#3-1启动命令" class="headerlink" title="3.1启动命令"></a>3.1启动命令</h4><p>在/usr/local/mongodb/bin下执行以下命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">╭─root@localhost.localdomain /usr/<span class="built_in">local</span>/mongodb/bin  </span><br><span class="line">╰─➤  ./mongod -f mongodb.conf                                               1 ↵</span><br><span class="line">2019-07-19T10:34:20.934+0800 I CONTROL  [main] Automatically disabling TLS 1.0, to force-enable TLS 1.0 specify --sslDisabledProtocols <span class="string">'none'</span></span><br><span class="line">about to fork child process, waiting until server is ready <span class="keyword">for</span> connections.</span><br><span class="line">forked process: 23803</span><br><span class="line">child process started successfully, parent exiting</span><br></pre></td></tr></table></figure>
+<p>看到child process started successfully, parent exiting并且没有ERROR就启动成功了</p>
+<h4 id="3-2遇到的错误"><a href="#3-2遇到的错误" class="headerlink" title="3.2遇到的错误"></a>3.2遇到的错误</h4><h5 id="3-2-1-ERROR-child-process-failed-exited-with-error-number-1"><a href="#3-2-1-ERROR-child-process-failed-exited-with-error-number-1" class="headerlink" title="3.2.1 ERROR: child process failed, exited with error number 1"></a>3.2.1 ERROR: child process failed, exited with error number 1</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">╭─root@localhost.localdomain /usr/<span class="built_in">local</span>/mongodb/bin  </span><br><span class="line">╰─➤  ./mongod -f mongodb.conf                                               1 ↵</span><br><span class="line">2019-07-19T10:32:28.196+0800 I CONTROL  [main] Automatically disabling TLS 1.0, to force-enable TLS 1.0 specify --sslDisabledProtocols <span class="string">'none'</span></span><br><span class="line">about to fork child process, waiting until server is ready <span class="keyword">for</span> connections.</span><br><span class="line">forked process: 23525</span><br><span class="line">ERROR: child process failed, exited with error number 1</span><br><span class="line">To see additional information <span class="keyword">in</span> this output, start without the <span class="string">"--fork"</span> option.</span><br></pre></td></tr></table></figure>
+<p>这是因为将日志文件创建为了日志文件夹</p>
+<p>删除日志文件夹创建日志文件<br>rm -rf /usr/local/mongodb/logs<br>touch /usr/local/mongodb/logs</p>
+<h5 id="3-2-1-ERROR-child-process-failed-exited-with-error-number-100"><a href="#3-2-1-ERROR-child-process-failed-exited-with-error-number-100" class="headerlink" title="3.2.1 ERROR: child process failed, exited with error number 100"></a>3.2.1 ERROR: child process failed, exited with error number 100</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">╭─root@localhost.localdomain /usr/<span class="built_in">local</span>/mongodb/bin  </span><br><span class="line">╰─➤  ./mongod -f mongodb.conf                       </span><br><span class="line">2019-07-19T10:45:03.074+0800 I CONTROL  [main] Automatically disabling TLS 1.0, to force-enable TLS 1.0 specify --sslDisabledProtocols <span class="string">'none'</span></span><br><span class="line">about to fork child process, waiting until server is ready <span class="keyword">for</span> connections.</span><br><span class="line">forked process: 24158</span><br><span class="line">ERROR: child process failed, exited with error number 100</span><br><span class="line">To see additional information <span class="keyword">in</span> this output, start without the <span class="string">"--fork"</span> option.</span><br><span class="line">╭─root@localhost.localdomain /usr/<span class="built_in">local</span>/mongodb/bin  </span><br><span class="line">╰─➤  lsof -i:27017                                                        100 ↵</span><br><span class="line">COMMAND   PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME</span><br><span class="line">mongod  23803 root   11u  IPv4 132396      0t0  TCP localhost:27017 (LISTEN)</span><br><span class="line">╭─root@localhost.localdomain /usr/<span class="built_in">local</span>/mongodb/bin  </span><br><span class="line">╰─➤  <span class="built_in">kill</span> -9 23803</span><br><span class="line">╭─root@localhost.localdomain /usr/<span class="built_in">local</span>/mongodb/bin  </span><br><span class="line">╰─➤  ./mongod -f mongodb.conf</span><br><span class="line">2019-07-19T10:45:43.419+0800 I CONTROL  [main] Automatically disabling TLS 1.0, to force-enable TLS 1.0 specify --sslDisabledProtocols <span class="string">'none'</span></span><br><span class="line">about to fork child process, waiting until server is ready <span class="keyword">for</span> connections.</span><br><span class="line">forked process: 24192</span><br><span class="line">child process started successfully, parent exiting</span><br></pre></td></tr></table></figure>
+<p>这是因为已经启动了mongodb在启动会报的错</p>
+<p>解决方法:杀掉启动的mongodb进程然后启动</p>
+
+    </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="https://raw.githubusercontent.com/qincloud/cloudconfig/master/images/20181205/weixi.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip"></p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ©
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2019/07/19/python/scrapy/python爬虫框架scrapy安装/" class="pre-post btn btn-default" title="python爬虫框架scrapy安装(一)">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">python爬虫框架scrapy安装(一)</span>
+        </a>
+    
+    
+        <a href="/2019/07/18/linux/centos7安装teamviewer/" class="next-post btn btn-default" title="centos7安装teamviewer">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">centos7安装teamviewer</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: ''.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-下载mongodb"><span class="toc-text">1.下载mongodb</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-配置文件"><span class="toc-text">2.配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1mongo配置"><span class="toc-text">2.1mongo配置</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-1创建日志文件和数据库文件夹"><span class="toc-text">2.1.1创建日志文件和数据库文件夹</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2配置文件详解"><span class="toc-text">2.2配置文件详解</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-启动"><span class="toc-text">3.启动</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1启动命令"><span class="toc-text">3.1启动命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2遇到的错误"><span class="toc-text">3.2遇到的错误</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-1-ERROR-child-process-failed-exited-with-error-number-1"><span class="toc-text">3.2.1 ERROR: child process failed, exited with error number 1</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-1-ERROR-child-process-failed-exited-with-error-number-100"><span class="toc-text">3.2.1 ERROR: child process failed, exited with error number 100</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <!--
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2018
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>-->
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>

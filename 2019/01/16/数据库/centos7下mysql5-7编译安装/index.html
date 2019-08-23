@@ -1,0 +1,432 @@
+<!DOCTYPE HTML>
+<html lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="廖振钦的个人网站">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <link rel="dns-prefetch" href="https://liaozhq.github.io">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>centos7下mysql5.7编译安装 | 廖振钦的个人网站</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="廖振钦的个人网站" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(https://raw.githubusercontent.com/qincloud/cloudconfig/master/images/20190106/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="liaozq">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://liaozhq.github.io">廖振钦的个人网站</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/resume/"><i class="fa "></i>个人简历</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/prev/"><i class="fa "></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/linux/"><i class="fa "></i>linux</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/c/"><i class="fa "></i>c/c++</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/java/"><i class="fa "></i>java</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/golang/"><i class="fa "></i>golang</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/js/"><i class="fa "></i>javascript</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/database/"><i class="fa "></i>数据库</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/mechine/"><i class="fa "></i>机器学习</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/bigdata/"><i class="fa "></i>云计算/大数据</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/search/"><i class="fa "></i>搜索引擎</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/success/"><i class="fa "></i>成功学</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/bczx/"><i class="fa "></i>程序哲学</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/arch/"><i class="fa "></i>软件架构</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/algorithm/"><i class="fa "></i>数据结构/算法</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/zhongyi/"><i class="fa "></i>中医/养生/戒色</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/day/"><i class="fa "></i>日记</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/tool/"><i class="fa "></i>工具/中间件</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/server/"><i class="fa "></i>服务器</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/work/"><i class="fa "></i>work</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/hacker/"><i class="fa "></i>hacker</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="centos7下mysql5.7编译安装">
+            
+	            centos7下mysql5.7编译安装
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/database">
+            database
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/mysql" title="mysql">
+                        mysql
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/01/16</span>
+        </span>
+        
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="一-卸载mariadb数据库"><a href="#一-卸载mariadb数据库" class="headerlink" title="一.卸载mariadb数据库"></a>一.卸载mariadb数据库</h3><p>由于centos7自带mariadb数据库,所以需要先卸载。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost /home/lzq]<span class="comment"># find / -name mariadb*            #查找mariadb的文件</span></span><br><span class="line">find: ‘/run/user/1000/gvfs’: 权限不够</span><br><span class="line">/etc/ld.so.conf.d/mariadb-x86_64.conf</span><br><span class="line">/usr/share/doc/mariadb-libs-5.5.60</span><br><span class="line">[root@localhost /home/lzq]<span class="comment"># rpm -qa | grep "mariadb"         #查找mariadb的服务    </span></span><br><span class="line">mariadb-libs-5.5.60-1.el7_5.x86_64</span><br></pre></td></tr></table></figure>
+<p>卸载mariadb的服务<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost /home/lzq]<span class="comment"># rpm -e mariadb-libs-5.5.60-1.el7_5.x86_64 --nodeps</span></span><br><span class="line">/sbin/ldconfig: /lib64/libstdc++.so.6 不是符号连接</span><br><span class="line">[root@localhost /home/lzq]<span class="comment"># find / -name mariadb*     #再次查找mariadb的文件文件就没了</span></span><br><span class="line">find: ‘/run/user/1000/gvfs’: 权限不够</span><br></pre></td></tr></table></figure></p>
+<h3 id="二-安装mysql依赖的库"><a href="#二-安装mysql依赖的库" class="headerlink" title="二.安装mysql依赖的库"></a>二.安装mysql依赖的库</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost /home/lzq]<span class="comment"># yum -y install make gcc-c++ cmake bison-devel ncurses-devel</span></span><br></pre></td></tr></table></figure>
+<h3 id="三-下载源代码包"><a href="#三-下载源代码包" class="headerlink" title="三.下载源代码包"></a>三.下载源代码包</h3><p>mysql5.7.5以后的版本都要依赖boost,我没有安装boost,就直接下载了自带boost的源代码包</p>
+<p><a href="https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-boost-5.7.22.tar.gz" target="_blank" rel="noopener">mysql代码包下载地址</a></p>
+<p>如果上面的地址没了csdn的下载地址</p>
+<p><a href="https://download.csdn.net/download/u013244517/10921915" target="_blank" rel="noopener">csdn下载地址</a></p>
+<h3 id="四-解压代码编译安装"><a href="#四-解压代码编译安装" class="headerlink" title="四.解压代码编译安装"></a>四.解压代码编译安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[lzq@localhost ~/tool]$  tar zxvf mysql-boost-5.7.22.tar.gz</span><br></pre></td></tr></table></figure>
+<p>然后进入mysql代码文件夹</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~/tool]$ <span class="built_in">cd</span> mysql-5.7.22/</span><br></pre></td></tr></table></figure>
+<p>配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">cmake \ -DCMAKE_INSTALL_PREFIX=/usr/<span class="built_in">local</span>/mysql \           <span class="comment">#[MySQL安装的根目录]</span></span><br><span class="line">-DMYSQL_DATADIR=/data/mysql \                       <span class="comment">#[MySQL数据库文件存放目录]</span></span><br><span class="line">-DSYSCONFDIR=/etc \                                 <span class="comment">#[MySQL配置文件所在目录]</span></span><br><span class="line">-DMYSQL_UNIX_ADDR=/usr/<span class="built_in">local</span>/mysql/mysql.sock \     <span class="comment">#[MySQL的sock文件目录]</span></span><br><span class="line">-DEXTRA_CHARSETS=all \                              <span class="comment">#[使MySQL支持所有的扩展字符]</span></span><br><span class="line">-DDEFAULT_CHARSET=utf8  \                           <span class="comment">#[设置默认字符集为utf8]</span></span><br><span class="line">-DDEFAULT_COLLATION=utf8_general_ci  \              <span class="comment">#[设置默认字符校对]</span></span><br><span class="line">-DWITH_BOOST=boost \                                <span class="comment">#[指定boost安装路径]</span></span><br><span class="line">-DWITH_MYISAM_STORAGE_ENGINE=1 \                    </span><br><span class="line">-DWITH_INNOBASE_STORAGE_ENGINE=1 \                  </span><br><span class="line">-DMYSQL_TCP_PORT=3306 \                             <span class="comment">#[MySQL的监听端口]</span></span><br><span class="line">-DENABLED_LOCAL_INFILE=1 \                          <span class="comment">#[启用加载本地数据]</span></span><br><span class="line">-DWITH_PARTITION_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_EMBEDDED_SERVER=OFF \</span><br><span class="line">-DWITH_SYSTEMD=1                                    <span class="comment">#[用systemd管理mysql]</span></span><br></pre></td></tr></table></figure>
+<p>无注释可直接复制</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmake -DCMAKE_INSTALL_PREFIX=/usr/<span class="built_in">local</span>/mysql -DMYSQL_DATADIR=/data/mysql -DSYSCONFDIR=/etc -DMYSQL_UNIX_ADDR=/usr/<span class="built_in">local</span>/mysql/mysql.sock -DEXTRA_CHARSETS=all -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DWITH_BOOST=boost -DWITH_MYISAM_STORAGE_ENGINE=1 -DWITH_INNOBASE_STORAGE_ENGINE=1 -DMYSQL_TCP_PORT=3306 -DENABLED_LOCAL_INFILE=1 -DWITH_PARTITION_STORAGE_ENGINE=1 -DWITH_EMBEDDED_SERVER=OFF -DWITH_SYSTEMD=1</span><br></pre></td></tr></table></figure>
+<p>配置完后安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost /home/lzq/tool/mysql-5.7.22]<span class="comment"># make -j 2</span></span><br><span class="line">[root@localhost /home/lzq/tool/mysql-5.7.22]<span class="comment"># make install</span></span><br></pre></td></tr></table></figure>
+<h3 id="五-mysql安装后相关配置"><a href="#五-mysql安装后相关配置" class="headerlink" title="五.mysql安装后相关配置"></a>五.mysql安装后相关配置</h3><h4 id="1-创建mysql用户-并更改权限"><a href="#1-创建mysql用户-并更改权限" class="headerlink" title="1.创建mysql用户,并更改权限"></a>1.创建mysql用户,并更改权限</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost /home/lzq]<span class="comment"># groupadd -g 1100 mysql</span></span><br><span class="line">[root@localhost /home/lzq]<span class="comment"># useradd -g 1100 -M -s /sbin/nologin -u 1100 mysql</span></span><br><span class="line">[root@localhost /home/lzq]<span class="comment"># chown -R mysql: /usr/local/mysql/</span></span><br><span class="line">[root@localhost /home/lzq]<span class="comment"># chown -R mysql: /data/mysql</span></span><br><span class="line">chown: 无法访问<span class="string">"/data/mysql"</span>: 没有那个文件或目录</span><br><span class="line">[root@localhost /home/lzq]<span class="comment"># mkdir /data               #创建 /data</span></span><br><span class="line">[root@localhost /home/lzq]<span class="comment"># mkdir /data/mysql         #创建 /data/mysql</span></span><br><span class="line">[root@localhost /home/lzq]<span class="comment"># chown -R mysql: /data/mysql</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-将mysqld-servie复制到-usr-lib-systemd-system"><a href="#2-将mysqld-servie复制到-usr-lib-systemd-system" class="headerlink" title="2.将mysqld.servie复制到/usr/lib/systemd/system/"></a>2.将mysqld.servie复制到/usr/lib/systemd/system/</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost /home/lzq]<span class="comment"># cp /usr/local/mysql/usr/lib/systemd/system/mysqld.service   /usr/lib/systemd/system/</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-创建log目录与pid目录，并修改权限"><a href="#3-创建log目录与pid目录，并修改权限" class="headerlink" title="3.创建log目录与pid目录，并修改权限"></a>3.创建log目录与pid目录，并修改权限</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost /home/lzq]<span class="comment"># mkdir -p /log/mysql</span></span><br><span class="line">[root@localhost /home/lzq]<span class="comment"># chown -R mysql: /log/mysql</span></span><br><span class="line">[root@localhost /home/lzq]<span class="comment"># mkdir -p /var/run/mysqld</span></span><br><span class="line">[root@localhost /home/lzq]<span class="comment"># chown -R mysql: /var/run/mysqld    #可以通过grep pid /usr/lib/systemd/system/mysqld.service查看pid文件位置</span></span><br></pre></td></tr></table></figure>
+<h4 id="4-添加环境变量"><a href="#4-添加环境变量" class="headerlink" title="4.添加环境变量"></a>4.添加环境变量</h4><p>打开/etc/profile添加mysql bin路径</p>
+<p>export PATH=$JAVA_HOME/bin:$ORACLE_HOME/bin:/usr/local/mysql/bin:$PATH:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost /home/lzq]<span class="comment"># source /etc/profile</span></span><br></pre></td></tr></table></figure>
+<h4 id="5-初始化数据库并启动"><a href="#5-初始化数据库并启动" class="headerlink" title="5.初始化数据库并启动"></a>5.初始化数据库并启动</h4><p>初始化数据库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost /home/lzq]<span class="comment"># /usr/local/mysql/bin/mysqld --initialize-insecure --user=mysql --basedir=/usr/local/mysql --datadir=/data/mysql</span></span><br></pre></td></tr></table></figure>
+<p>启动数据库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost /home/lzq]<span class="comment"># systemctl start mysqld</span></span><br><span class="line">[root@localhost /home/lzq]<span class="comment"># systemctl status mysqld</span></span><br><span class="line">● mysqld.service - MySQL Server</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/mysqld.service; disabled; vendor preset: disabled)</span><br><span class="line">   Active: active (running) since 四 2019-01-17 08:30:41 CST; 5s ago</span><br><span class="line">     Docs: man:mysqld(8)</span><br><span class="line">           http://dev.mysql.com/doc/refman/en/using-systemd.html</span><br><span class="line">  Process: 19998 ExecStart=/usr/<span class="built_in">local</span>/mysql/bin/mysqld --daemonize --pid-file=/var/run/mysqld/mysqld.pid <span class="variable">$MYSQLD_OPTS</span> (code=exited, status=0/SUCCESS)</span><br><span class="line">  Process: 19917 ExecStartPre=/usr/<span class="built_in">local</span>/mysql/bin/mysqld_pre_systemd (code=exited, status=0/SUCCESS)</span><br><span class="line"> Main PID: 20001 (mysqld)</span><br><span class="line">    Tasks: 27</span><br><span class="line">   CGroup: /system.slice/mysqld.service</span><br><span class="line">           └─20001 /usr/<span class="built_in">local</span>/mysql/bin/mysqld --daemonize --pid-file=/var/ru...</span><br><span class="line"></span><br><span class="line">1月 17 08:30:41 localhost.localdomain mysqld[19998]: 2019-01-17T00:30:41.365...</span><br><span class="line">1月 17 08:30:41 localhost.localdomain mysqld[19998]: 2019-01-17T00:30:41.365...</span><br><span class="line">1月 17 08:30:41 localhost.localdomain mysqld[19998]: 2019-01-17T00:30:41.368...</span><br><span class="line">1月 17 08:30:41 localhost.localdomain mysqld[19998]: 2019-01-17T00:30:41.369...</span><br><span class="line">1月 17 08:30:41 localhost.localdomain mysqld[19998]: 2019-01-17T00:30:41.369...</span><br><span class="line">1月 17 08:30:41 localhost.localdomain mysqld[19998]: 2019-01-17T00:30:41.369...</span><br><span class="line">1月 17 08:30:41 localhost.localdomain mysqld[19998]: 2019-01-17T00:30:41.369...</span><br><span class="line">1月 17 08:30:41 localhost.localdomain mysqld[19998]: 2019-01-17T00:30:41.382...</span><br><span class="line">1月 17 08:30:41 localhost.localdomain mysqld[19998]: 2019-01-17T00:30:41.445...</span><br><span class="line">1月 17 08:30:41 localhost.localdomain systemd[1]: Started MySQL Server.</span><br><span class="line">Hint: Some lines were ellipsized, use -l to show <span class="keyword">in</span> full.</span><br></pre></td></tr></table></figure>
+<h4 id="6-设置密码"><a href="#6-设置密码" class="headerlink" title="6.设置密码"></a>6.设置密码</h4><h5 id="6-1-密码设置"><a href="#6-1-密码设置" class="headerlink" title="6.1 密码设置"></a>6.1 密码设置</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost /home/lzq]<span class="comment"># mysql_secure_installation</span></span><br><span class="line"></span><br><span class="line">Securing the MySQL server deployment.</span><br><span class="line"></span><br><span class="line">Connecting to MySQL using a blank password.</span><br><span class="line">The <span class="string">'validate_password'</span> plugin is installed on the server.</span><br><span class="line">The subsequent steps will run with the existing configuration</span><br><span class="line">of the plugin.</span><br><span class="line">Please <span class="built_in">set</span> the password <span class="keyword">for</span> root here.</span><br><span class="line"></span><br><span class="line">New password: </span><br><span class="line"></span><br><span class="line">Re-enter new password: </span><br><span class="line"></span><br><span class="line">Estimated strength of the password: 50 </span><br><span class="line">Do you wish to <span class="built_in">continue</span> with the password provided?(Press y|Y <span class="keyword">for</span> Yes, any other key <span class="keyword">for</span> No) : Y</span><br><span class="line">By default, a MySQL installation has an anonymous user,</span><br><span class="line">allowing anyone to <span class="built_in">log</span> into MySQL without having to have</span><br><span class="line">a user account created <span class="keyword">for</span> them. This is intended only <span class="keyword">for</span></span><br><span class="line">testing, and to make the installation go a bit smoother.</span><br><span class="line">You should remove them before moving into a production</span><br><span class="line">environment.</span><br><span class="line"></span><br><span class="line">Remove anonymous users? (Press y|Y <span class="keyword">for</span> Yes, any other key <span class="keyword">for</span> No) : y</span><br><span class="line">Success.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Normally, root should only be allowed to connect from</span><br><span class="line"><span class="string">'localhost'</span>. This ensures that someone cannot guess at</span><br><span class="line">the root password from the network.</span><br><span class="line"></span><br><span class="line">Disallow root login remotely? (Press y|Y <span class="keyword">for</span> Yes, any other key <span class="keyword">for</span> No) : n</span><br><span class="line"></span><br><span class="line"> ... skipping.</span><br><span class="line">By default, MySQL comes with a database named <span class="string">'test'</span> that</span><br><span class="line">anyone can access. This is also intended only <span class="keyword">for</span> testing,</span><br><span class="line">and should be removed before moving into a production</span><br><span class="line">environment.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Remove <span class="built_in">test</span> database and access to it? (Press y|Y <span class="keyword">for</span> Yes, any other key <span class="keyword">for</span> No) : y</span><br><span class="line"> - Dropping <span class="built_in">test</span> database...</span><br><span class="line">Success.</span><br><span class="line"></span><br><span class="line"> - Removing privileges on <span class="built_in">test</span> database...</span><br><span class="line">Success.</span><br><span class="line"></span><br><span class="line">Reloading the privilege tables will ensure that all changes</span><br><span class="line">made so far will take effect immediately.</span><br><span class="line"></span><br><span class="line">Reload privilege tables now? (Press y|Y <span class="keyword">for</span> Yes, any other key <span class="keyword">for</span> No) : y</span><br><span class="line">Success.</span><br><span class="line"></span><br><span class="line">All <span class="keyword">done</span>!</span><br></pre></td></tr></table></figure>
+<h5 id="6-2-遇到的错误"><a href="#6-2-遇到的错误" class="headerlink" title="6.2 遇到的错误"></a>6.2 遇到的错误</h5><font style="color:red;"><br>Failed! Error: Your password does not satisfy the current policy requirements<br></font>
+
+<p>解决办法:无密码登陆mysql执行</p>
+<p>set global validate_password_policy=0;</p>
+<p>set global validate_password_length=4;</p>
+<p>然后在执行mysql_secure_installation设置密码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost /home/lzq]<span class="comment"># mysql -uroot</span></span><br><span class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection id is 9</span><br><span class="line">Server version: 5.7.22 Source distribution</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.</span><br><span class="line"></span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and/or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line"></span><br><span class="line">Type <span class="string">'help;'</span> or <span class="string">'\h'</span> <span class="keyword">for</span> <span class="built_in">help</span>. Type <span class="string">'\c'</span> to clear the current input statement.</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="built_in">set</span> global validate_password_policy=0;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="built_in">set</span> global validate_password_length=4;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#### 7.开放Root远程连接权限</span></span><br><span class="line"></span><br><span class="line">``` bash</span><br><span class="line">[root@localhost /home/lzq]<span class="comment"># mysql -uroot -p</span></span><br><span class="line">Enter password: </span><br><span class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection id is 12</span><br><span class="line">Server version: 5.7.22 Source distribution</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.</span><br><span class="line"></span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and/or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line"></span><br><span class="line">Type <span class="string">'help;'</span> or <span class="string">'\h'</span> <span class="keyword">for</span> <span class="built_in">help</span>. Type <span class="string">'\c'</span> to clear the current input statement.</span><br><span class="line"></span><br><span class="line">mysql&gt; use mysql</span><br><span class="line">Reading table information <span class="keyword">for</span> completion of table and column names</span><br><span class="line">You can turn off this feature to get a quicker startup with -A</span><br><span class="line"></span><br><span class="line">Database changed</span><br><span class="line">mysql&gt; grant all privileges on *.* to <span class="string">'root'</span>@<span class="string">'%'</span> identified by <span class="string">'root'</span>;</span><br><span class="line">Query OK, 0 rows affected, 1 warning (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; flush privileges;</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from user;</span><br></pre></td></tr></table></figure>
+<h3 id="六-mysql配置文件"><a href="#六-mysql配置文件" class="headerlink" title="六.mysql配置文件"></a>六.mysql配置文件</h3><p>打开/etc/my.cnf</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost /home/lzq]<span class="comment"># gedit /etc/my.cnf</span></span><br></pre></td></tr></table></figure>
+<p>添加如下内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">basedir=/usr/local/mysql</span><br><span class="line">datadir=/data/mysql</span><br><span class="line">socket=/usr/local/mysql/mysql.sock</span><br><span class="line">log_error=/log/mysql/mysql.log</span><br><span class="line">server-id=1</span><br><span class="line">explicit_defaults_for_timestamp=true</span><br></pre></td></tr></table></figure>
+    </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="https://raw.githubusercontent.com/qincloud/cloudconfig/master/images/20181205/weixi.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip"></p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ©
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2019/01/16/数据库/centos7下redis编译安装/" class="pre-post btn btn-default" title="centos7下redis编译安装">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">centos7下redis编译安装</span>
+        </a>
+    
+    
+        <a href="/2019/01/14/other/2019年1月14日日记/" class="next-post btn btn-default" title="2019年1月14日日记">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">2019年1月14日日记</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: ''.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-卸载mariadb数据库"><span class="toc-text">一.卸载mariadb数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-安装mysql依赖的库"><span class="toc-text">二.安装mysql依赖的库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三-下载源代码包"><span class="toc-text">三.下载源代码包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四-解压代码编译安装"><span class="toc-text">四.解压代码编译安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五-mysql安装后相关配置"><span class="toc-text">五.mysql安装后相关配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-创建mysql用户-并更改权限"><span class="toc-text">1.创建mysql用户,并更改权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-将mysqld-servie复制到-usr-lib-systemd-system"><span class="toc-text">2.将mysqld.servie复制到/usr/lib/systemd/system/</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-创建log目录与pid目录，并修改权限"><span class="toc-text">3.创建log目录与pid目录，并修改权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-添加环境变量"><span class="toc-text">4.添加环境变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-初始化数据库并启动"><span class="toc-text">5.初始化数据库并启动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-设置密码"><span class="toc-text">6.设置密码</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#6-1-密码设置"><span class="toc-text">6.1 密码设置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-2-遇到的错误"><span class="toc-text">6.2 遇到的错误</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#六-mysql配置文件"><span class="toc-text">六.mysql配置文件</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <!--
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2018
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>-->
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE HTML>
+<html lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="廖振钦的个人网站">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <link rel="dns-prefetch" href="https://liaozhq.github.io">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>scrapy中重要的组件(四) | 廖振钦的个人网站</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="廖振钦的个人网站" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(https://raw.githubusercontent.com/qincloud/cloudconfig/master/images/20190106/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="liaozq">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://liaozhq.github.io">廖振钦的个人网站</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/resume/"><i class="fa "></i>个人简历</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/prev/"><i class="fa "></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/linux/"><i class="fa "></i>linux</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/c/"><i class="fa "></i>c/c++</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/java/"><i class="fa "></i>java</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/golang/"><i class="fa "></i>golang</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/js/"><i class="fa "></i>javascript</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/database/"><i class="fa "></i>数据库</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/mechine/"><i class="fa "></i>机器学习</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/bigdata/"><i class="fa "></i>云计算/大数据</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/search/"><i class="fa "></i>搜索引擎</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/success/"><i class="fa "></i>成功学</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/bczx/"><i class="fa "></i>程序哲学</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/arch/"><i class="fa "></i>软件架构</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/algorithm/"><i class="fa "></i>数据结构/算法</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/zhongyi/"><i class="fa "></i>中医/养生/戒色</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/day/"><i class="fa "></i>日记</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/tool/"><i class="fa "></i>工具/中间件</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/server/"><i class="fa "></i>服务器</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/work/"><i class="fa "></i>work</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/hacker/"><i class="fa "></i>hacker</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="scrapy中重要的组件(四)">
+            
+	            scrapy中重要的组件(四)
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/python">
+            python
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/scrapy教程" title="scrapy教程">
+                        scrapy教程
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/08/17</span>
+        </span>
+        
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="1-Spider的子类"><a href="#1-Spider的子类" class="headerlink" title="1 Spider的子类"></a>1 Spider的子类</h3><h4 id="1-1-CrawlSpider类"><a href="#1-1-CrawlSpider类" class="headerlink" title="1.1 CrawlSpider类"></a>1.1 CrawlSpider类</h4><h5 id="1-1-1源代码"><a href="#1-1-1源代码" class="headerlink" title="1.1.1源代码"></a>1.1.1源代码</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CrawlSpider</span><span class="params">(Spider)</span>:</span></span><br><span class="line"></span><br><span class="line">    rules = ()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, *a, **kw)</span>:</span></span><br><span class="line">        super(CrawlSpider, self).__init__(*a, **kw)</span><br><span class="line">        self._compile_rules()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._parse_response(response, self.parse_start_url, cb_kwargs=&#123;&#125;, follow=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_start_url</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> []</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_results</span><span class="params">(self, response, results)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> results</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_build_request</span><span class="params">(self, rule, link)</span>:</span></span><br><span class="line">        r = Request(url=link.url, callback=self._response_downloaded)</span><br><span class="line">        r.meta.update(rule=rule, link_text=link.text)</span><br><span class="line">        <span class="keyword">return</span> r</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_requests_to_follow</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> isinstance(response, HtmlResponse):</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        seen = set()</span><br><span class="line">        <span class="keyword">for</span> n, rule <span class="keyword">in</span> enumerate(self._rules):</span><br><span class="line">            links = [lnk <span class="keyword">for</span> lnk <span class="keyword">in</span> rule.link_extractor.extract_links(response)</span><br><span class="line">                     <span class="keyword">if</span> lnk <span class="keyword">not</span> <span class="keyword">in</span> seen]</span><br><span class="line">            <span class="keyword">if</span> links <span class="keyword">and</span> rule.process_links:</span><br><span class="line">                links = rule.process_links(links)</span><br><span class="line">            <span class="keyword">for</span> link <span class="keyword">in</span> links:</span><br><span class="line">                seen.add(link)</span><br><span class="line">                request = self._build_request(n, link)</span><br><span class="line">                <span class="keyword">yield</span> rule._process_request(request, response)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_response_downloaded</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        rule = self._rules[response.meta[<span class="string">'rule'</span>]]</span><br><span class="line">        <span class="keyword">return</span> self._parse_response(response, rule.callback, rule.cb_kwargs, rule.follow)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_parse_response</span><span class="params">(self, response, callback, cb_kwargs, follow=True)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> callback:</span><br><span class="line">            cb_res = callback(response, **cb_kwargs) <span class="keyword">or</span> ()</span><br><span class="line">            cb_res = self.process_results(response, cb_res)</span><br><span class="line">            <span class="keyword">for</span> requests_or_item <span class="keyword">in</span> iterate_spider_output(cb_res):</span><br><span class="line">                <span class="keyword">yield</span> requests_or_item</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> follow <span class="keyword">and</span> self._follow_links:</span><br><span class="line">            <span class="keyword">for</span> request_or_item <span class="keyword">in</span> self._requests_to_follow(response):</span><br><span class="line">                <span class="keyword">yield</span> request_or_item</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_compile_rules</span><span class="params">(self)</span>:</span></span><br><span class="line">        self._rules = [copy.copy(r) <span class="keyword">for</span> r <span class="keyword">in</span> self.rules]</span><br><span class="line">        <span class="keyword">for</span> rule <span class="keyword">in</span> self._rules:</span><br><span class="line">            rule._compile(self)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">from_crawler</span><span class="params">(cls, crawler, *args, **kwargs)</span>:</span></span><br><span class="line">        spider = super(CrawlSpider, cls).from_crawler(crawler, *args, **kwargs)</span><br><span class="line">        spider._follow_links = crawler.settings.getbool(</span><br><span class="line">            <span class="string">'CRAWLSPIDER_FOLLOW_LINKS'</span>, <span class="keyword">True</span>)</span><br><span class="line">        <span class="keyword">return</span> spider</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-XMLFeedSpider类"><a href="#1-2-XMLFeedSpider类" class="headerlink" title="1.2 XMLFeedSpider类"></a>1.2 XMLFeedSpider类</h4><h5 id="1-2-1源代码"><a href="#1-2-1源代码" class="headerlink" title="1.2.1源代码"></a>1.2.1源代码</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">XMLFeedSpider</span><span class="params">(Spider)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    This class intends to be the base class for spiders that scrape</span></span><br><span class="line"><span class="string">    from XML feeds.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    You can choose whether to parse the file using the 'iternodes' iterator, an</span></span><br><span class="line"><span class="string">    'xml' selector, or an 'html' selector.  In most cases, it's convenient to</span></span><br><span class="line"><span class="string">    use iternodes, since it's a faster and cleaner.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    iterator = <span class="string">'iternodes'</span></span><br><span class="line">    itertag = <span class="string">'item'</span></span><br><span class="line">    namespaces = ()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_results</span><span class="params">(self, response, results)</span>:</span></span><br><span class="line">        <span class="string">"""This overridable method is called for each result (item or request)</span></span><br><span class="line"><span class="string">        returned by the spider, and it's intended to perform any last time</span></span><br><span class="line"><span class="string">        processing required before returning the results to the framework core,</span></span><br><span class="line"><span class="string">        for example setting the item GUIDs. It receives a list of results and</span></span><br><span class="line"><span class="string">        the response which originated that results. It must return a list of</span></span><br><span class="line"><span class="string">        results (Items or Requests).</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">return</span> results</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">adapt_response</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        <span class="string">"""You can override this function in order to make any changes you want</span></span><br><span class="line"><span class="string">        to into the feed before parsing it. This function must return a</span></span><br><span class="line"><span class="string">        response.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">return</span> response</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_node</span><span class="params">(self, response, selector)</span>:</span></span><br><span class="line">        <span class="string">"""This method must be overriden with your custom spider functionality"""</span></span><br><span class="line">        <span class="keyword">if</span> hasattr(self, <span class="string">'parse_item'</span>):  <span class="comment"># backward compatibility</span></span><br><span class="line">            <span class="keyword">return</span> self.parse_item(response, selector)</span><br><span class="line">        <span class="keyword">raise</span> NotImplementedError</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_nodes</span><span class="params">(self, response, nodes)</span>:</span></span><br><span class="line">        <span class="string">"""This method is called for the nodes matching the provided tag name</span></span><br><span class="line"><span class="string">        (itertag). Receives the response and an Selector for each node.</span></span><br><span class="line"><span class="string">        Overriding this method is mandatory. Otherwise, you spider won't work.</span></span><br><span class="line"><span class="string">        This method must return either a BaseItem, a Request, or a list</span></span><br><span class="line"><span class="string">        containing any of them.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> selector <span class="keyword">in</span> nodes:</span><br><span class="line">            ret = iterate_spider_output(self.parse_node(response, selector))</span><br><span class="line">            <span class="keyword">for</span> result_item <span class="keyword">in</span> self.process_results(response, ret):</span><br><span class="line">                <span class="keyword">yield</span> result_item</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> hasattr(self, <span class="string">'parse_node'</span>):</span><br><span class="line">            <span class="keyword">raise</span> NotConfigured(<span class="string">'You must define parse_node method in order to scrape this XML feed'</span>)</span><br><span class="line"></span><br><span class="line">        response = self.adapt_response(response)</span><br><span class="line">        <span class="keyword">if</span> self.iterator == <span class="string">'iternodes'</span>:</span><br><span class="line">            nodes = self._iternodes(response)</span><br><span class="line">        <span class="keyword">elif</span> self.iterator == <span class="string">'xml'</span>:</span><br><span class="line">            selector = Selector(response, type=<span class="string">'xml'</span>)</span><br><span class="line">            self._register_namespaces(selector)</span><br><span class="line">            nodes = selector.xpath(<span class="string">'//%s'</span> % self.itertag)</span><br><span class="line">        <span class="keyword">elif</span> self.iterator == <span class="string">'html'</span>:</span><br><span class="line">            selector = Selector(response, type=<span class="string">'html'</span>)</span><br><span class="line">            self._register_namespaces(selector)</span><br><span class="line">            nodes = selector.xpath(<span class="string">'//%s'</span> % self.itertag)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> NotSupported(<span class="string">'Unsupported node iterator'</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> self.parse_nodes(response, nodes)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_iternodes</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> node <span class="keyword">in</span> xmliter(response, self.itertag):</span><br><span class="line">            self._register_namespaces(node)</span><br><span class="line">            <span class="keyword">yield</span> node</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_register_namespaces</span><span class="params">(self, selector)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> (prefix, uri) <span class="keyword">in</span> self.namespaces:</span><br><span class="line">            selector.register_namespace(prefix, uri)</span><br></pre></td></tr></table></figure>
+<h4 id="1-3-CSVFeedSpider类"><a href="#1-3-CSVFeedSpider类" class="headerlink" title="1.3 CSVFeedSpider类"></a>1.3 CSVFeedSpider类</h4><h5 id="1-3-1源代码"><a href="#1-3-1源代码" class="headerlink" title="1.3.1源代码"></a>1.3.1源代码</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CSVFeedSpider</span><span class="params">(Spider)</span>:</span></span><br><span class="line">    <span class="string">"""Spider for parsing CSV feeds.</span></span><br><span class="line"><span class="string">    It receives a CSV file in a response; iterates through each of its rows,</span></span><br><span class="line"><span class="string">    and calls parse_row with a dict containing each field's data.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    You can set some options regarding the CSV file, such as the delimiter, quotechar</span></span><br><span class="line"><span class="string">    and the file's headers.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    delimiter = <span class="keyword">None</span> <span class="comment"># When this is None, python's csv module's default delimiter is used</span></span><br><span class="line">    quotechar = <span class="keyword">None</span> <span class="comment"># When this is None, python's csv module's default quotechar is used</span></span><br><span class="line">    headers = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_results</span><span class="params">(self, response, results)</span>:</span></span><br><span class="line">        <span class="string">"""This method has the same purpose as the one in XMLFeedSpider"""</span></span><br><span class="line">        <span class="keyword">return</span> results</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">adapt_response</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        <span class="string">"""This method has the same purpose as the one in XMLFeedSpider"""</span></span><br><span class="line">        <span class="keyword">return</span> response</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_row</span><span class="params">(self, response, row)</span>:</span></span><br><span class="line">        <span class="string">"""This method must be overriden with your custom spider functionality"""</span></span><br><span class="line">        <span class="keyword">raise</span> NotImplementedError</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_rows</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        <span class="string">"""Receives a response and a dict (representing each row) with a key for</span></span><br><span class="line"><span class="string">        each provided (or detected) header of the CSV file.  This spider also</span></span><br><span class="line"><span class="string">        gives the opportunity to override adapt_response and</span></span><br><span class="line"><span class="string">        process_results methods for pre and post-processing purposes.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> row <span class="keyword">in</span> csviter(response, self.delimiter, self.headers, self.quotechar):</span><br><span class="line">            ret = iterate_spider_output(self.parse_row(response, row))</span><br><span class="line">            <span class="keyword">for</span> result_item <span class="keyword">in</span> self.process_results(response, ret):</span><br><span class="line">                <span class="keyword">yield</span> result_item</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> hasattr(self, <span class="string">'parse_row'</span>):</span><br><span class="line">            <span class="keyword">raise</span> NotConfigured(<span class="string">'You must define parse_row method in order to scrape this CSV feed'</span>)</span><br><span class="line">        response = self.adapt_response(response)</span><br><span class="line">        <span class="keyword">return</span> self.parse_rows(response)</span><br></pre></td></tr></table></figure>
+<h4 id="1-4-SitemapSpider类"><a href="#1-4-SitemapSpider类" class="headerlink" title="1.4 SitemapSpider类"></a>1.4 SitemapSpider类</h4><h5 id="1-4-1源代码"><a href="#1-4-1源代码" class="headerlink" title="1.4.1源代码"></a>1.4.1源代码</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SitemapSpider</span><span class="params">(Spider)</span>:</span></span><br><span class="line"></span><br><span class="line">    sitemap_urls = ()</span><br><span class="line">    sitemap_rules = [(<span class="string">''</span>, <span class="string">'parse'</span>)]</span><br><span class="line">    sitemap_follow = [<span class="string">''</span>]</span><br><span class="line">    sitemap_alternate_links = <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, *a, **kw)</span>:</span></span><br><span class="line">        super(SitemapSpider, self).__init__(*a, **kw)</span><br><span class="line">        self._cbs = []</span><br><span class="line">        <span class="keyword">for</span> r, c <span class="keyword">in</span> self.sitemap_rules:</span><br><span class="line">            <span class="keyword">if</span> isinstance(c, six.string_types):</span><br><span class="line">                c = getattr(self, c)</span><br><span class="line">            self._cbs.append((regex(r), c))</span><br><span class="line">        self._follow = [regex(x) <span class="keyword">for</span> x <span class="keyword">in</span> self.sitemap_follow]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">start_requests</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> url <span class="keyword">in</span> self.sitemap_urls:</span><br><span class="line">            <span class="keyword">yield</span> Request(url, self._parse_sitemap)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sitemap_filter</span><span class="params">(self, entries)</span>:</span></span><br><span class="line">        <span class="string">"""This method can be used to filter sitemap entries by their</span></span><br><span class="line"><span class="string">        attributes, for example, you can filter locs with lastmod greater</span></span><br><span class="line"><span class="string">        than a given date (see docs).</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">for</span> entry <span class="keyword">in</span> entries:</span><br><span class="line">            <span class="keyword">yield</span> entry</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_parse_sitemap</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> response.url.endswith(<span class="string">'/robots.txt'</span>):</span><br><span class="line">            <span class="keyword">for</span> url <span class="keyword">in</span> sitemap_urls_from_robots(response.text, base_url=response.url):</span><br><span class="line">                <span class="keyword">yield</span> Request(url, callback=self._parse_sitemap)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            body = self._get_sitemap_body(response)</span><br><span class="line">            <span class="keyword">if</span> body <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">                logger.warning(<span class="string">"Ignoring invalid sitemap: %(response)s"</span>,</span><br><span class="line">                               &#123;<span class="string">'response'</span>: response&#125;, extra=&#123;<span class="string">'spider'</span>: self&#125;)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">            s = Sitemap(body)</span><br><span class="line">            it = self.sitemap_filter(s)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> s.type == <span class="string">'sitemapindex'</span>:</span><br><span class="line">                <span class="keyword">for</span> loc <span class="keyword">in</span> iterloc(it, self.sitemap_alternate_links):</span><br><span class="line">                    <span class="keyword">if</span> any(x.search(loc) <span class="keyword">for</span> x <span class="keyword">in</span> self._follow):</span><br><span class="line">                        <span class="keyword">yield</span> Request(loc, callback=self._parse_sitemap)</span><br><span class="line">            <span class="keyword">elif</span> s.type == <span class="string">'urlset'</span>:</span><br><span class="line">                <span class="keyword">for</span> loc <span class="keyword">in</span> iterloc(it, self.sitemap_alternate_links):</span><br><span class="line">                    <span class="keyword">for</span> r, c <span class="keyword">in</span> self._cbs:</span><br><span class="line">                        <span class="keyword">if</span> r.search(loc):</span><br><span class="line">                            <span class="keyword">yield</span> Request(loc, callback=c)</span><br><span class="line">                            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_get_sitemap_body</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        <span class="string">"""Return the sitemap body contained in the given response,</span></span><br><span class="line"><span class="string">        or None if the response is not a sitemap.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> isinstance(response, XmlResponse):</span><br><span class="line">            <span class="keyword">return</span> response.body</span><br><span class="line">        <span class="keyword">elif</span> gzip_magic_number(response):</span><br><span class="line">            <span class="keyword">return</span> gunzip(response.body)</span><br><span class="line">        <span class="comment"># actual gzipped sitemap files are decompressed above ;</span></span><br><span class="line">        <span class="comment"># if we are here (response body is not gzipped)</span></span><br><span class="line">        <span class="comment"># and have a response for .xml.gz,</span></span><br><span class="line">        <span class="comment"># it usually means that it was already gunzipped</span></span><br><span class="line">        <span class="comment"># by HttpCompression middleware,</span></span><br><span class="line">        <span class="comment"># the HTTP response being sent with "Content-Encoding: gzip"</span></span><br><span class="line">        <span class="comment"># without actually being a .xml.gz file in the first place,</span></span><br><span class="line">        <span class="comment"># merely XML gzip-compressed on the fly,</span></span><br><span class="line">        <span class="comment"># in other word, here, we have plain XML</span></span><br><span class="line">        <span class="keyword">elif</span> response.url.endswith(<span class="string">'.xml'</span>) <span class="keyword">or</span> response.url.endswith(<span class="string">'.xml.gz'</span>):</span><br><span class="line">            <span class="keyword">return</span> response.body</span><br></pre></td></tr></table></figure>
+    </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="https://raw.githubusercontent.com/qincloud/cloudconfig/master/images/20181205/weixi.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip"></p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 ©
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2019/08/23/python/scrapy/scrapyd的使用/" class="pre-post btn btn-default" title="scrapyd的使用">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">scrapyd的使用</span>
+        </a>
+    
+    
+        <a href="/2019/08/14/中医/戒色/断念口诀/" class="next-post btn btn-default" title="断念口诀">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">断念口诀</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: ''.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Spider的子类"><span class="toc-text">1 Spider的子类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-CrawlSpider类"><span class="toc-text">1.1 CrawlSpider类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-1源代码"><span class="toc-text">1.1.1源代码</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-XMLFeedSpider类"><span class="toc-text">1.2 XMLFeedSpider类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-1源代码"><span class="toc-text">1.2.1源代码</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-CSVFeedSpider类"><span class="toc-text">1.3 CSVFeedSpider类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-3-1源代码"><span class="toc-text">1.3.1源代码</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-SitemapSpider类"><span class="toc-text">1.4 SitemapSpider类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-4-1源代码"><span class="toc-text">1.4.1源代码</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <!--
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2018
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>-->
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
